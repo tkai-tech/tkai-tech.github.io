@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior – Ihr persönlicher Begleiter</title>
+<style>
+  :root {
+    --blau: #1a4d8f;
+    --blau-dunkel: #123a6e;
+    --gruen: #1e7a3c;
+    --gruen-dunkel: #155c2d;
+    --rot: #b0322a;
+    --hintergrund: #fdfaf4;
+    --karte: #ffffff;
+    --text: #1c1c1c;
+    --text-hell: #444444;
+    --rand: #c9c2b4;
+    --gold: #8a6212;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 20px; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: var(--hintergrund);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  header {
+    background: var(--blau);
+    color: #fff;
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  header h1 { font-size: 1.6rem; letter-spacing: 0.03em; }
+  header h1 span { color: #ffd97a; }
+  nav { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  nav button {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.55rem 1.1rem;
+    border: 2px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  nav button:hover, nav button:focus-visible { background: #ffffff; color: var(--blau); }
+  button:focus-visible { outline: 4px solid #000000; outline-offset: 3px; }
+  nav button.aktiv { background: #ffffff; color: var(--blau); font-weight: bold; }
+  main { max-width: 880px; margin: 0 auto; padding: 1.4rem 1.2rem 4rem; }
+  .ansicht { display: none; }
+  .ansicht.sichtbar { display: block; }
+  h2 { font-size: 1.7rem; color: var(--blau-dunkel); margin: 1.2rem 0 0.8rem; }
+  h3 { font-size: 1.25rem; color: var(--blau-dunkel); margin: 1rem 0 0.5rem; }
+  p { margin-bottom: 0.9rem; }
+  .karte {
+    background: var(--karte);
+    border: 2px solid var(--rand);
+    border-radius: 16px;
+    padding: 1.4rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .gross-knopf {
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.35rem;
+    font-weight: bold;
+    padding: 1.1rem 2.2rem;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background: var(--gruen);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  }
+  .gross-knopf:hover, .gross-knopf:focus-visible { background: var(--gruen-dunkel); }
+  .gross-knopf.stop { background: var(--rot); }
+  .gross-knopf:disabled { background: #999; cursor: not-allowed; }
+  .neben-knopf {
+    font-family: inherit;
+    font-size: 1.05rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 12px;
+    border: 2px solid var(--blau);
+    background: #fff;
+    color: var(--blau);
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .neben-knopf:hover, .neben-knopf:focus-visible { background: var(--blau); color: #fff; }
+  .zentriert { text-align: center; }
+
+  /* Assistent */
+  #kreis {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    margin: 1rem auto;
+    background: radial-gradient(circle at 35% 30%, #4d7fc4, var(--blau));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.4rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 0 rgba(26,77,143,0.4);
+  }
+  #kreis.spricht { animation: pulsieren 1.4s ease-in-out infinite; }
+  #kreis.hoert { background: radial-gradient(circle at 35% 30%, #45a86a, var(--gruen)); animation: pulsieren 1.4s ease-in-out infinite; }
+  @keyframes pulsieren {
+    0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(26,77,143,0.35); }
+    50%  { transform: scale(1.06); box-shadow: 0 0 0 22px rgba(26,77,143,0); }
+    100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(26,77,143,0); }
+  }
+  #status-zeile {
+    font-size: 1.15rem;
+    color: var(--text-hell);
+    min-height: 1.8rem;
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+  #verlauf {
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 0.4rem;
+  }
+  .blase {
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    margin: 0.5rem 0;
+    max-width: 92%;
+    font-size: 1.1rem;
+  }
+  .blase.coach { background: #e8eefa; border: 1px solid #b9c9e6; }
+  .blase.nutzer { background: #e9f5ec; border: 1px solid #b6d9c0; margin-left: auto; }
+  .blase .wer { font-weight: bold; font-size: 0.95rem; color: var(--text-hell); display: block; margin-bottom: 0.2rem; }
+  #kontingent-balken {
+    background: #eee;
+    border: 1px solid var(--rand);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 26px;
+    margin-top: 0.4rem;
+  }
+  #kontingent-fuellung { background: var(--gold); height: 100%; width: 0%; transition: width 0.5s; }
+  .hinweis { font-size: 1rem; color: var(--text-hell); }
+  .fehler { color: var(--rot); font-weight: bold; }
+
+  /* Formulare */
+  label { display: block; font-weight: bold; margin: 0.9rem 0 0.3rem; font-size: 1.1rem; }
+  input[type=text], input[type=email], select {
+    font-family: inherit;
+    font-size: 1.15rem;
+    padding: 0.7rem;
+    width: 100%;
+    border: 2px solid var(--rand);
+    border-radius: 10px;
+    background: #fff;
+  }
+  input:focus, select:focus { outline: 3px solid var(--blau); }
+  fieldset { border: 2px solid var(--rand); border-radius: 12px; padding: 0.8rem 1rem; margin: 0.9rem 0; }
+  legend { font-weight: bold; padding: 0 0.4rem; }
+  .kachel-reihe { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+  .abo-kachel {
+    flex: 1 1 230px;
+    background: #fff;
+    border: 2px solid var(--rand);
+    border-radius: 16px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .abo-kachel.empfohlen { border: 3px solid var(--gold); position: relative; }
+  .abo-kachel.empfohlen::before {
+    content: "Beliebteste Wahl";
+    position: absolute; top: -0.9rem; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #fff; font-size: 0.85rem; font-weight: bold;
+    padding: 0.15rem 0.8rem; border-radius: 8px; white-space: nowrap;
+  }
+  .preis { font-size: 1.9rem; font-weight: bold; color: var(--blau-dunkel); margin: 0.4rem 0; }
+  .preis small { font-size: 0.9rem; font-weight: normal; color: var(--text-hell); }
+  .abo-kachel ul { list-style: none; text-align: left; margin: 0.8rem 0; }
+  .abo-kachel li { padding: 0.25rem 0 0.25rem 1.6rem; position: relative; font-size: 1rem; }
+  .abo-kachel li::before { content: "✓"; position: absolute; left: 0; color: var(--gruen); font-weight: bold; }
+  footer {
+    text-align: center; padding: 1.2rem; color: var(--text-hell);
+    font-size: 0.95rem; border-top: 1px solid var(--rand); margin-top: 2rem;
+  }
+  .versteckt { display: none !important; }
+
+  /* --- Vollbild-Bühne (integrierte Gemini-Szene: Frau im Wohnzimmer) --- */
+  #buehne {
+    position: relative;
+    width: 100vw; margin-left: calc(50% - 50vw);
+    height: calc(100vh - 76px); min-height: 420px;
+    overflow: hidden; background: #202a24;
+  }
+  .szene {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    opacity: 0; transition: opacity .09s linear;
+  }
+  .szene.szene-sichtbar { opacity: 1; }
+  #buehne-status {
+    position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
+    background: rgba(20, 26, 22, 0.62); color: #fff;
+    padding: 0.45rem 1.2rem; border-radius: 12px;
+    font-size: 1.1rem; max-width: 90%; text-align: center;
+    backdrop-filter: blur(3px);
+    min-height: 1.4em;
+  }
+  #buehne-status:empty { display: none; }
+  #buehne-knoepfe {
+    position: absolute; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; justify-content: center;
+    z-index: 3;
+  }
+  #buehne-knoepfe .neben-knopf { background: rgba(255,255,255,0.92); }
+  /* Seitliches Transkript-Panel im Bild */
+  #seitenpanel {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: min(340px, 38%);
+    background: rgba(20, 26, 22, 0.55);
+    backdrop-filter: blur(4px);
+    color: #fff; padding: 1rem;
+    display: flex; flex-direction: column;
+    transform: translateX(100%); transition: transform .3s ease;
+    z-index: 2;
+  }
+  #seitenpanel.offen { transform: translateX(0); }
+  #seitenpanel h3 { color: #ffd97a; font-size: 1.05rem; margin: 0 0 0.5rem; }
+  #verlauf { flex: 1; overflow-y: auto; max-height: none; }
+  #verlauf .blase { background: rgba(255,255,255,0.14); border: none; color: #fff; }
+  #verlauf .blase.nutzer { background: rgba(30, 122, 60, 0.45); }
+  #verlauf .blase .wer { color: #ffd97a; }
+  #panel-schalter {
+    position: absolute; top: 1rem; right: 1rem; z-index: 4;
+    font-family: inherit; font-size: 1rem; font-weight: bold;
+    padding: 0.5rem 0.9rem; border-radius: 10px; border: none; cursor: pointer;
+    background: rgba(20,26,22,0.62); color: #fff;
+  }
+  #mikro-fehler {
+    position: absolute; bottom: 6.5rem; left: 50%; transform: translateX(-50%);
+    background: rgba(176, 50, 42, 0.92); color: #fff; padding: 0.6rem 1rem;
+    border-radius: 10px; max-width: 90%; z-index: 3;
+  }
+  @media (max-width: 720px) {
+    #seitenpanel { width: 85%; }
+    #buehne { height: calc(100vh - 120px); }
+  }
+  #kreis { display: none; } /* alter Sonnenblumen-Kreis – ersetzt durch die Szene */
+  @media (max-width: 620px) {
+    html { font-size: 18px; }
+    .gross-knopf { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌻 <span>Senior</span> – Ihr Begleiter</h1>
+  <nav aria-label="Hauptnavigation">
+    <button data-ziel="home" class="aktiv">Start</button>
+    <button data-ziel="registrieren" id="nav-registrieren">Anmelden</button>
+    <button data-ziel="profil" id="nav-profil" class="versteckt">Mein Profil</button>
+    <button data-ziel="abo">Mitgliedschaft</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ===================== START / ASSISTENT ===================== -->
+  <section id="ansicht-home" class="ansicht sichtbar" aria-label="Startseite mit Sprach-Assistent">
+    <div id="buehne" aria-label="Ihre Begleiterin im Wohnzimmer">
+      <img class="szene szene-sichtbar" id="szene-zu"    src="avatar/szene-zu.jpg"    alt="Ihre Begleiterin im Wohnzimmer">
+      <img class="szene" id="szene-halb"  src="avatar/szene-halb.jpg"  alt="" aria-hidden="true">
+      <img class="szene" id="szene-offen" src="avatar/szene-offen.jpg" alt="" aria-hidden="true">
+      <img class="szene" id="szene-augen" src="avatar/szene-augen.jpg" alt="" aria-hidden="true">
+      <div id="kreis" aria-hidden="true">🌻</div>
+      <p id="buehne-status"><span id="status-zeile" role="status" aria-live="polite">Drücken Sie den grünen Knopf, um zu beginnen.</span></p>
+      <button id="panel-schalter" aria-controls="seitenpanel">📖 Mitlesen</button>
+      <aside id="seitenpanel" aria-label="Gespräch zum Mitlesen">
+        <h3>Unser Gespräch zum Mitlesen</h3>
+        <div id="verlauf" aria-label="Gesprächsverlauf"></div>
+      </aside>
+      <div id="buehne-knoepfe">
+        <button class="gross-knopf" id="knopf-gespraech">🎤 Gespräch beginnen</button>
+        <button class="neben-knopf" id="knopf-wiederholen" disabled>🔊 Noch einmal</button>
+      </div>
+      <div id="mikro-fehler" class="fehler versteckt" role="alert"></div>
+    </div>
+    <div class="karte zentriert">
+      <h2 id="begruessung-titel">Schön, dass Sie da sind!</h2>
+      <p style="font-size:1.2rem">Ich bin Ihr persönlicher Begleiter. Wir können einfach miteinander <strong>sprechen</strong> – ganz ohne Tippen.</p>
+    </div>
+
+    <div class="karte" id="kontingent-karte">
+      <h3>Ihre Gesprächszeit</h3>
+      <p id="kontingent-text" class="hinweis"></p>
+      <div id="kontingent-balken" role="progressbar" aria-label="Verbrauchte Gesprächszeit" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="kontingent-fuellung"></div>
+      </div>
+      <p id="kontingent-aufruf" class="versteckt" style="margin-top:0.8rem">
+        <button class="neben-knopf" data-ziel="registrieren">Kostenlos anmelden und mehr Zeit erhalten</button>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== REGISTRIERUNG ===================== -->
+  <section id="ansicht-registrieren" class="ansicht" aria-label="Anmeldung">
+    <h2>Kostenlos anmelden</h2>
+    <div class="karte">
+      <p>Mit einem kostenlosen Konto merke ich mir Ihren Namen, Ihre Interessen und unsere Gespräche. So kann ich Sie viel persönlicher begleiten – und Sie erhalten <strong>15 Minuten Gesprächszeit pro Tag</strong> statt 10 Minuten insgesamt.</p>
+      <form id="formular-registrieren">
+        <label for="feld-name">Wie dürfen wir Sie nennen?</label>
+        <input type="text" id="feld-name" autocomplete="given-name" required>
+
+        <label for="feld-email">Ihre E-Mail-Adresse</label>
+        <input type="email" id="feld-email" autocomplete="email" required>
+
+        <label for="feld-alter">Ihr Alter (freiwillig)</label>
+        <select id="feld-alter">
+          <option value="">Möchte ich nicht sagen</option>
+          <option>60 bis 69</option>
+          <option>70 bis 79</option>
+          <option>80 bis 89</option>
+          <option>90 oder älter</option>
+        </select>
+
+        <fieldset>
+          <legend>Was interessiert Sie? (Mehrfachauswahl möglich)</legend>
+          <label style="font-weight:normal"><input type="checkbox" value="Gesundheit und Bewegung"> Gesundheit und Bewegung</label>
+          <label style="font-weight:normal"><input type="checkbox" value="Gedächtnistraining"> Gedächtnistraining</label>
+          <label style="font-weight:normal"><input type="checkbox" value="Kochen und Ernährung"> Kochen und Ernährung</label>
+          <label style="font-weight:normal"><input type="checkbox" value="Geschichten und Erinnerungen"> Geschichten und Erinnerungen</label>
+          <label style="font-weight:normal"><input type="checkbox" value="Hilfe mit Handy und Computer"> Hilfe mit Handy und Computer</label>
+        </fieldset>
+
+        <button type="submit" class="gross-knopf" style="margin-top:0.6rem">Konto anlegen</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== PROFIL ===================== -->
+  <section id="ansicht-profil" class="ansicht" aria-label="Mein Profil">
+    <h2>Mein Profil</h2>
+    <div class="karte" id="profil-inhalt"></div>
+    <div class="karte">
+      <h3>Meine Notizen aus unseren Gesprächen</h3>
+      <p class="hinweis">Hier merke ich mir Dinge, die Ihnen wichtig sind.</p>
+      <div id="profil-notizen"><p class="hinweis"><em>Noch keine Notizen vorhanden.</em></p></div>
+    </div>
+    <p><button class="neben-knopf" id="knopf-abmelden">Abmelden und Daten auf diesem Gerät löschen</button></p>
+  </section>
+
+  <!-- ===================== ABO ===================== -->
+  <section id="ansicht-abo" class="ansicht" aria-label="Mitgliedschaft">
+    <h2>Ihre Mitgliedschaft</h2>
+    <p>Wählen Sie, wie viel Begleitung Sie sich wünschen. Jederzeit kündbar, keine versteckten Kosten.</p>
+    <div class="kachel-reihe">
+      <div class="abo-kachel">
+        <h3>Schnuppern</h3>
+        <p class="preis">0 €<small> für immer</small></p>
+        <ul>
+          <li>10 Minuten kostenlos testen</li>
+          <li>Mit Konto: 15 Minuten pro Tag</li>
+          <li>Gespräch zum Mitlesen</li>
+        </ul>
+        <button class="neben-knopf" data-ziel="registrieren">Kostenlos starten</button>
+      </div>
+      <div class="abo-kachel empfohlen">
+        <h3>Begleiter</h3>
+        <p class="preis">19,99 €<small> pro Monat</small></p>
+        <ul>
+          <li>30 Minuten Gesprächszeit pro Tag – jeden Tag aufs Neue</li>
+          <li>Persönliche Erinnerungen (Medikamente, Termine)</li>
+          <li>Tägliches Guten-Morgen-Gespräch</li>
+          <li>Gedächtnisübungen nach Maß</li>
+        </ul>
+        <button class="gross-knopf" style="font-size:1.1rem;padding:0.8rem 1.4rem" data-abo="Begleiter">Auswählen</button>
+      </div>
+      <div class="abo-kachel">
+        <h3>Familie</h3>
+        <p class="preis">34,99 €<small> pro Monat</small></p>
+        <ul>
+          <li>Alles aus „Begleiter“</li>
+          <li>Wochenbericht für Angehörige</li>
+          <li>Bis zu 2 Senioren-Konten (je 30 Minuten pro Tag)</li>
+          <li>Bevorzugter Telefon-Support</li>
+        </ul>
+        <button class="neben-knopf" data-abo="Familie">Auswählen</button>
+      </div>
+      <div class="abo-kachel">
+        <h3>Begleiterin Plus</h3>
+        <p class="preis">49,99 €<small> pro Monat</small></p>
+        <ul>
+          <li>Ihre Begleiterin als <strong>echtes Video</strong> – Lippen bewegen sich beim Sprechen wie im Gespräch von Angesicht zu Angesicht</li>
+          <li>45 Minuten Gesprächszeit pro Tag</li>
+          <li>Alles aus „Begleiter“</li>
+        </ul>
+        <p class="hinweis" style="margin-bottom:0.6rem"><em>Bald verfügbar – wir arbeiten daran.</em></p>
+        <button class="neben-knopf" disabled title="Bald verfügbar">Bald verfügbar</button>
+      </div>
+    </div>
+
+    <h3 style="margin-top:1.6rem">Oder lieber ohne Abo? Minuten-Pakete zum Aufladen</h3>
+    <p class="hinweis">Einmal kaufen, in Ruhe verbrauchen – das Guthaben verfällt nicht am Tagesende und ergänzt Ihre täglichen Gratis-Minuten.</p>
+    <div class="kachel-reihe" id="prepaid-reihe">
+      <div class="abo-kachel">
+        <h3>100 Minuten</h3>
+        <p class="preis">7,99 €<small> einmalig</small></p>
+        <button class="neben-knopf" data-prepaid="100">Aufladen</button>
+      </div>
+      <div class="abo-kachel">
+        <h3>300 Minuten</h3>
+        <p class="preis">19,99 €<small> einmalig</small></p>
+        <button class="neben-knopf" data-prepaid="300">Aufladen</button>
+      </div>
+      <div class="abo-kachel">
+        <h3>1000 Minuten</h3>
+        <p class="preis">49,99 €<small> einmalig</small></p>
+        <button class="neben-knopf" data-prepaid="1000">Aufladen</button>
+      </div>
+    </div>
+    <div class="karte versteckt" id="abo-bestaetigung">
+      <h3>Vielen Dank!</h3>
+      <p id="abo-bestaetigung-text"></p>
+      <p class="hinweis">Hinweis: Dies ist ein Prototyp – es wurde nichts berechnet. Die Bezahlung wird später über einen sicheren Anbieter (z. B. Stripe) abgewickelt.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Senior – Prototyp · Ihre Gespräche bleiben auf diesem Gerät gespeichert. ·
+  <span id="fuss-status"></span>
+</footer>
+
+<script src="gemini-live.js"></script>
+<script>
+"use strict";
+
+/* =====================================================================
+   KONFIGURATION
+   Sprachmodell: Google Gemini Live (echte Sprach-zu-Sprach-KI).
+   Ohne Gemini-Schlüssel läuft der alte Demo-Modus (Browser-Sprachtechnik
+   + eingebaute Antworten) als Rückfallebene weiter.
+   ===================================================================== */
+const KONFIG = {
+  gemini: {
+    apiKey: "",   // Gemini-Schlüssel (aistudio.google.com). Leer = es wird der auf der
+                  // Vergleichsseite (voice-vergleich.html) gespeicherte Schlüssel genutzt.
+    modell: "gemini-3.1-flash-live-preview",
+    stimme: "Kore"
+  },
+  llm: {                       // nur noch Demo-Rückfallebene ohne Gemini-Schlüssel
+    anbieter: "keiner",        // "keiner" | "openai" | "anthropic"
+    apiKey: "",
+    modellOpenAI: "gpt-4o-mini",
+    modellAnthropic: "claude-haiku-4-5"
+  },
+  gratisMinutenOhneKonto: 10,  // einmalig, ohne Anmeldung
+  gratisMinutenMitKonto: 15,   // pro Tag, mit kostenlosem Konto
+  // Fair-Use-Kontingente der Mitgliedschaften (Minuten pro Tag).
+  // Hintergrund: ~1,3–2 US-Cent API-Kosten pro Gesprächsminute — "unbegrenzt"
+  // wäre bei Vielnutzern nicht kostendeckend (siehe Recherche-Notiz im Projekt).
+  aboMinutenProTag: {
+    "Begleiter": 30,
+    "Familie": 30,
+    "Begleiterin Plus": 45
+  },
+  // Prepaid-Minutenpakete (ohne Abo, Guthaben verfällt nicht am Tagesende)
+  prepaidPakete: [
+    { minuten: 100,  preis: "7,99 €" },
+    { minuten: 300,  preis: "19,99 €" },
+    { minuten: 1000, preis: "49,99 €" }
+  ]
+};
+
+function geminiSchluessel() {
+  return KONFIG.gemini.apiKey || GeminiLive.gespeicherterSchluessel();
+}
+
+/* ============================ Speicher ============================ */
+const Speicher = {
+  lade(schluessel, standard) {
+    try { const w = localStorage.getItem("senior_" + schluessel); return w ? JSON.parse(w) : standard; }
+    catch (e) { return standard; }
+  },
+  speichere(schluessel, wert) {
+    try { localStorage.setItem("senior_" + schluessel, JSON.stringify(wert)); } catch (e) {}
+  },
+  entferne(schluessel) { try { localStorage.removeItem("senior_" + schluessel); } catch (e) {} }
+};
+
+let nutzer = Speicher.lade("nutzer", null);   // {name, email, alter, interessen, abo}
+let notizen = Speicher.lade("notizen", []);
+
+/* ============================ Kontingent ============================ */
+const Kontingent = {
+  heutigerTag() { return new Date().toISOString().slice(0, 10); },
+  daten() {
+    let d = Speicher.lade("kontingent", { gesamtSek: 0, tagesSek: 0, tag: this.heutigerTag() });
+    if (d.tag !== this.heutigerTag()) { d.tagesSek = 0; d.tag = this.heutigerTag(); }
+    return d;
+  },
+  prepaidSek() { return Speicher.lade("prepaidSek", 0); },
+  ladePrepaidAuf(minuten) {
+    Speicher.speichere("prepaidSek", this.prepaidSek() + minuten * 60);
+  },
+  addiere(sek) {
+    const d = this.daten();
+    d.gesamtSek += sek;
+    // Erst das Tageskontingent verbrauchen, danach das Prepaid-Guthaben
+    const tagesRest = Math.max(0, this.limitSek() - d.tagesSek);
+    const insTageskontingent = Math.min(sek, tagesRest);
+    d.tagesSek += insTageskontingent;
+    const ueberschuss = sek - insTageskontingent;
+    if (ueberschuss > 0)
+      Speicher.speichere("prepaidSek", Math.max(0, this.prepaidSek() - ueberschuss));
+    Speicher.speichere("kontingent", d);
+  },
+  verfuegbareSek() {
+    const d = this.daten();
+    if (nutzer) return Math.max(0, this.limitSek() - d.tagesSek) + this.prepaidSek();
+    return Math.max(0, KONFIG.gratisMinutenOhneKonto * 60 - d.gesamtSek) + this.prepaidSek();
+  },
+  limitSek() {
+    // Mitglieder: Fair-Use-Tageskontingent laut KONFIG.aboMinutenProTag
+    if (nutzer && nutzer.abo && KONFIG.aboMinutenProTag[nutzer.abo])
+      return KONFIG.aboMinutenProTag[nutzer.abo] * 60;
+    return (nutzer ? KONFIG.gratisMinutenMitKonto : KONFIG.gratisMinutenOhneKonto) * 60;
+  },
+  istMitglied() { return !!(nutzer && nutzer.abo && nutzer.abo !== "Schnuppern"); }
+};
+
+/* ============================ Ansichten ============================ */
+function zeigeAnsicht(name) {
+  document.querySelectorAll(".ansicht").forEach(a => a.classList.remove("sichtbar"));
+  const ziel = document.getElementById("ansicht-" + name);
+  if (ziel) ziel.classList.add("sichtbar");
+  document.querySelectorAll("nav button").forEach(k => k.classList.toggle("aktiv", k.dataset.ziel === name));
+  window.scrollTo({ top: 0 });
+}
+document.addEventListener("click", e => {
+  const knopf = e.target.closest("[data-ziel]");
+  if (knopf) zeigeAnsicht(knopf.dataset.ziel);
+});
+
+/* ============================ Sprachausgabe (TTS) ============================ */
+const TTS = {
+  stimme: null,
+  letzterText: "",
+  verfuegbar: ("speechSynthesis" in window),
+  init() {
+    if (!this.verfuegbar) return;
+    const waehle = () => {
+      const stimmen = speechSynthesis.getVoices().filter(s => s.lang && s.lang.startsWith("de"));
+      this.stimme = stimmen.find(s => /neural|natural|premium/i.test(s.name)) || stimmen[0] || null;
+    };
+    waehle();
+    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = waehle;
+  },
+  sprich(text, fertig) {
+    this.letzterText = text;
+    if (!this.verfuegbar) { if (fertig) setTimeout(fertig, 400); return; }
+    speechSynthesis.cancel();
+    const aeusserung = new SpeechSynthesisUtterance(text);
+    aeusserung.lang = "de-DE";
+    if (this.stimme) aeusserung.voice = this.stimme;
+    aeusserung.rate = 0.92;   // etwas langsamer – angenehmer für ältere Ohren
+    aeusserung.pitch = 1.0;
+    aeusserung.onend = () => { setKreis(""); if (fertig) fertig(); };
+    aeusserung.onerror = () => { setKreis(""); if (fertig) fertig(); };
+    setKreis("spricht");
+    speechSynthesis.speak(aeusserung);
+  },
+  stopp() { if (this.verfuegbar) speechSynthesis.cancel(); },
+  sprichtGerade() { return this.verfuegbar && speechSynthesis.speaking; }
+};
+
+/* ============================ Spracherkennung (STT) ============================ */
+const ErkennungsKlasse = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+/* ============================ Oberfläche ============================ */
+const kreis = document.getElementById("kreis");
+const statusZeile = document.getElementById("status-zeile");
+const verlaufEl = document.getElementById("verlauf");
+const knopfGespraech = document.getElementById("knopf-gespraech");
+const knopfWiederholen = document.getElementById("knopf-wiederholen");
+
+function setKreis(zustand) {
+  kreis.className = zustand;
+  kreis.textContent = zustand === "hoert" ? "👂" : "🌻";
+}
+function setStatus(text) { statusZeile.textContent = text; }
+function zeigeBlase(wer, text) {
+  const blase = document.createElement("div");
+  blase.className = "blase " + (wer === "coach" ? "coach" : "nutzer");
+  const werEl = document.createElement("span");
+  werEl.className = "wer";
+  werEl.textContent = wer === "coach" ? "Ihr Begleiter" : (nutzer ? nutzer.name : "Sie");
+  blase.appendChild(werEl);
+  blase.appendChild(document.createTextNode(text));
+  verlaufEl.appendChild(blase);
+  verlaufEl.scrollTop = verlaufEl.scrollHeight;
+}
+
+/* ============================ Avatar (integrierte Vollbild-Szene) ============================ */
+/* Die Begleiterin ist Teil des Wohnzimmer-Bildes (Gemini-Montage). Beim Sprechen
+   wird zwischen drei Ganzbild-Varianten (Mund zu/halb/offen) überblendet —
+   gesteuert von der GEGLÄTTETEN Lautstärke der KI-Stimme (kein Flackern):
+   - exponentielle Glättung des Pegels
+   - Mindesthaltezeit 120 ms pro Mundstellung
+   - Hysterese (Wechsel erst bei deutlich anderem Pegel)
+   Blinzeln alle 4–8 s über die Augen-zu-Variante. */
+const Avatar = {
+  ebenen: {}, aktuelleStufe: "zu", letzterWechsel: 0, blinzelt: false,
+  pegelGlatt: 0,
+
+  init() {
+    this.ebenen = {
+      zu: document.getElementById("szene-zu"),
+      halb: document.getElementById("szene-halb"),
+      offen: document.getElementById("szene-offen"),
+      augen: document.getElementById("szene-augen")
+    };
+    this.blinzelPlanen();
+    this.schleife();
+  },
+
+  zeige(stufe) {
+    for (const [name, bild] of Object.entries(this.ebenen))
+      bild.classList.toggle("szene-sichtbar", name === stufe);
+  },
+
+  schleife() {
+    const roh = (typeof GeminiLive !== "undefined") ? GeminiLive.pegel() : 0;
+    // Glättung: schnelle Reaktion nach oben, sanftes Abklingen nach unten
+    this.pegelGlatt = roh > this.pegelGlatt
+      ? 0.5 * this.pegelGlatt + 0.5 * roh
+      : 0.82 * this.pegelGlatt + 0.18 * roh;
+
+    const jetzt = performance.now();
+    if (!this.blinzelt && jetzt - this.letzterWechsel >= 120) {
+      const p = this.pegelGlatt;
+      let stufe = this.aktuelleStufe;
+      // Hysterese: Auf- und Abstiegs-Schwellen unterscheiden sich
+      if (stufe === "zu")        { if (p > 0.045) stufe = "halb"; }
+      else if (stufe === "halb") { if (p > 0.11) stufe = "offen"; else if (p < 0.025) stufe = "zu"; }
+      else if (stufe === "offen"){ if (p < 0.07) stufe = "halb"; }
+      if (stufe !== this.aktuelleStufe) {
+        this.aktuelleStufe = stufe;
+        this.letzterWechsel = jetzt;
+        this.zeige(stufe);
+      }
+    }
+    requestAnimationFrame(() => this.schleife());
+  },
+
+  blinzelPlanen() {
+    setTimeout(() => {
+      // Nur blinzeln, wenn der Mund gerade zu ist — wirkt am natürlichsten
+      if (this.aktuelleStufe === "zu") {
+        this.blinzelt = true;
+        this.zeige("augen");
+        setTimeout(() => {
+          this.blinzelt = false;
+          this.zeige(this.aktuelleStufe);
+          this.blinzelPlanen();
+        }, 160);
+      } else {
+        this.blinzelPlanen();
+      }
+    }, 4000 + Math.random() * 4000);
+  }
+};
+
+/* Seitenpanel (Transkript) ein-/ausblenden */
+document.getElementById("panel-schalter").addEventListener("click", () => {
+  const panel = document.getElementById("seitenpanel");
+  panel.classList.toggle("offen");
+  document.getElementById("panel-schalter").textContent =
+    panel.classList.contains("offen") ? "✕ Schließen" : "📖 Mitlesen";
+});
+
+/* ============================ Coach-Gehirn ============================ */
+const Coach = {
+  verlauf: [],          // {rolle:"nutzer"|"coach", text}
+  phase: "begruessung", // begruessung -> name -> thema -> gespraech
+  merkeName: "",
+
+  systemPrompt() {
+    let p = "Du bist „Senior“, ein warmherziger, geduldiger Sprach-Coach für Menschen über 65. " +
+      "Sprich einfaches, klares Deutsch in kurzen Sätzen (maximal 3 Sätze pro Antwort, da vorgelesen wird). " +
+      "Sieze die Person. Sei ermutigend, nie belehrend. Stelle am Ende oft eine einfache Rückfrage. " +
+      "Themen: Gesundheit, Bewegung, Gedächtnistraining, Ernährung, Erinnerungen, Alltagshilfe, Technik-Hilfe. " +
+      "Gib keine medizinischen Diagnosen – empfiehl bei Gesundheitsfragen freundlich den Hausarzt.";
+    if (nutzer) {
+      p += " Die Person heißt " + nutzer.name + ".";
+      if (nutzer.interessen && nutzer.interessen.length) p += " Interessen: " + nutzer.interessen.join(", ") + ".";
+    }
+    return p;
+  },
+
+  async antworte(nutzerText) {
+    this.verlauf.push({ rolle: "nutzer", text: nutzerText });
+    let antwort;
+    if (KONFIG.llm.anbieter !== "keiner" && KONFIG.llm.apiKey) {
+      try { antwort = await this.frageLLM(); }
+      catch (e) { antwort = this.demoAntwort(nutzerText) + " (Hinweis: Die Verbindung zum Sprachmodell hat gerade nicht geklappt.)"; }
+    } else {
+      antwort = this.demoAntwort(nutzerText);
+    }
+    this.verlauf.push({ rolle: "coach", text: antwort });
+    return antwort;
+  },
+
+  /* --- Eingebaute Antworten (Demo-Modus ohne API-Schlüssel) --- */
+  demoAntwort(text) {
+    const t = text.toLowerCase();
+    const name = nutzer ? nutzer.name : this.merkeName;
+
+    if (/(tschüss|auf wiedersehen|beenden|aufhören|stopp)/.test(t)) {
+      this.phase = "thema";
+      return "Es war schön, mit Ihnen zu sprechen" + (name ? ", " + name : "") + ". Kommen Sie gerne jederzeit wieder. Auf Wiedersehen!";
+    }
+    if (this.phase === "name") {
+      const wort = text.replace(/^(ich heiße|ich bin|mein name ist)\s*/i, "").trim().split(/\s+/)[0];
+      this.merkeName = wort.charAt(0).toUpperCase() + wort.slice(1);
+      this.phase = "thema";
+      return "Sehr schön, " + this.merkeName + "! Das freut mich. Worüber möchten Sie heute sprechen? " +
+             "Zum Beispiel über Bewegung, über Gedächtnistraining, über gesunde Ernährung – oder erzählen Sie mir einfach von Ihrem Tag.";
+    }
+    if (/(bewegung|sport|spazier|gymnastik|fit)/.test(t)) {
+      merkeNotiz("Interessiert sich für Bewegung.");
+      return "Bewegung ist wunderbar! Schon ein täglicher Spaziergang von 20 Minuten stärkt Herz und Knochen. " +
+             "Auch sanfte Gymnastik im Sitzen wirkt Wunder. Was davon würde Ihnen Freude machen?";
+    }
+    if (/(gedächtnis|merken|vergess|gehirn|denken|rätsel)/.test(t)) {
+      merkeNotiz("Interessiert sich für Gedächtnistraining.");
+      return "Gern! Hier eine kleine Übung: Ich nenne drei Wörter – Apfel, Schlüssel, Sonne. " +
+             "Merken Sie sich diese. Und nun erzählen Sie mir kurz, was Sie heute gefrühstückt haben. Danach fragen Sie sich: Wie hießen die drei Wörter?";
+    }
+    if (/(essen|ernährung|kochen|rezept|frühstück|mittag)/.test(t)) {
+      merkeNotiz("Interessiert sich für Ernährung.");
+      return "Gesund essen kann sehr einfach sein: viel Gemüse, gute Eiweißquellen wie Quark oder Hülsenfrüchte, und ausreichend trinken – " +
+             "am besten anderthalb Liter Wasser am Tag. Was essen Sie denn besonders gern?";
+    }
+    if (/(einsam|allein|traurig|niemand)/.test(t)) {
+      return "Danke, dass Sie mir das anvertrauen. Solche Gefühle kennt fast jeder Mensch. " +
+             "Ich bin gerne für Sie da, so oft Sie mögen. Gibt es jemanden, den Sie diese Woche anrufen oder treffen könnten?";
+    }
+    if (/(schmerz|krank|arzt|medikament|blutdruck)/.test(t)) {
+      return "Bei gesundheitlichen Beschwerden ist Ihr Hausarzt die beste Adresse – bitte sprechen Sie ihn darauf an. " +
+             "Ich kann Sie aber gerne daran erinnern oder wir üben gemeinsam, was Sie ihn fragen möchten. Wäre das hilfreich?";
+    }
+    if (/(handy|computer|telefon|internet|whatsapp|technik)/.test(t)) {
+      merkeNotiz("Wünscht sich Hilfe mit Technik.");
+      return "Technik-Fragen beantworte ich sehr gern, Schritt für Schritt und ohne Eile. " +
+             "Was möchten Sie lernen – zum Beispiel Nachrichten schreiben, Fotos verschicken oder ein Videoanruf mit der Familie?";
+    }
+    if (/(wetter|tag|morgen|guten)/.test(t)) {
+      return "Ich hoffe, Sie haben einen angenehmen Tag" + (name ? ", " + name : "") + "! " +
+             "Erzählen Sie mir doch: Was haben Sie heute schon erlebt, oder was nehmen Sie sich noch vor?";
+    }
+    if (/(apfel|schlüssel|sonne)/.test(t)) {
+      return "Ausgezeichnet, Sie haben sich die Wörter gemerkt! Das war Apfel, Schlüssel und Sonne. " +
+             "Solche kleinen Übungen halten das Gedächtnis frisch. Möchten Sie noch eine Runde?";
+    }
+    return "Das ist interessant, erzählen Sie gerne mehr! " +
+           "Sie können mit mir auch über Bewegung, Gedächtnistraining, Ernährung oder Technik sprechen – ganz wie Sie mögen.";
+  },
+
+  /* --- Echte LLM-Anbindung (wenn API-Schlüssel eingetragen) --- */
+  async frageLLM() {
+    const nachrichten = this.verlauf.slice(-12).map(n => ({
+      role: n.rolle === "nutzer" ? "user" : "assistant",
+      content: n.text
+    }));
+    if (KONFIG.llm.anbieter === "anthropic") {
+      const antwort = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": KONFIG.llm.apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true"
+        },
+        body: JSON.stringify({
+          model: KONFIG.llm.modellAnthropic,
+          max_tokens: 300,
+          system: this.systemPrompt(),
+          messages: nachrichten
+        })
+      });
+      if (!antwort.ok) throw new Error("Anthropic " + antwort.status);
+      const daten = await antwort.json();
+      return daten.content[0].text;
+    }
+    // OpenAI-kompatibel
+    const antwort = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: { "content-type": "application/json", "authorization": "Bearer " + KONFIG.llm.apiKey },
+      body: JSON.stringify({
+        model: KONFIG.llm.modellOpenAI,
+        max_tokens: 300,
+        messages: [{ role: "system", content: this.systemPrompt() }, ...nachrichten]
+      })
+    });
+    if (!antwort.ok) throw new Error("OpenAI " + antwort.status);
+    const daten = await antwort.json();
+    return daten.choices[0].message.content;
+  }
+};
+
+function merkeNotiz(text) {
+  if (!nutzer) return;
+  if (!notizen.includes(text)) {
+    notizen.push(text);
+    Speicher.speichere("notizen", notizen);
+  }
+}
+
+/* ============================ Gesprächssteuerung ============================ */
+let gespraechAktiv = false;
+let erkennung = null;
+let zeitMesserIntervall = null;
+let erkennungsFehler = 0;      // Zähler für aufeinanderfolgende Erkennungsfehler
+let erschoepftGemeldet = false;
+
+function begruessungsText() {
+  if (nutzer) {
+    return "Hallo " + nutzer.name + ", schön, dass Sie wieder da sind! Worüber möchten Sie heute sprechen?";
+  }
+  Coach.phase = "name";
+  return "Hallo und herzlich willkommen! Ich bin Ihr persönlicher Begleiter hier bei Senior. " +
+    "Mit mir können Sie einfach sprechen – über Gesundheit, Bewegung, Gedächtnistraining oder einfach über Ihren Tag. " +
+    "Ich höre zu, gebe Anregungen und bin für Sie da. Verraten Sie mir zuerst: Wie heißen Sie?";
+}
+
+/* --- Live-Gespräch über Gemini (echte Sprach-KI, Standard-Weg) --- */
+let liveModus = false;
+let liveNutzerBlase = null, liveCoachBlase = null;
+let liveCoachText = "";
+let liveVerabschiedet = false;
+let liveNutzerPuffer = "";
+
+function liveText(wer, teil) {
+  let blase = wer === "coach" ? liveCoachBlase : liveNutzerBlase;
+  if (!blase) {
+    blase = document.createElement("div");
+    blase.className = "blase " + (wer === "coach" ? "coach" : "nutzer");
+    const werEl = document.createElement("span");
+    werEl.className = "wer";
+    werEl.textContent = wer === "coach" ? "Ihr Begleiter" : (nutzer ? nutzer.name : "Sie");
+    blase.appendChild(werEl);
+    blase.appendChild(document.createTextNode(""));
+    verlaufEl.appendChild(blase);
+    if (wer === "coach") liveCoachBlase = blase; else liveNutzerBlase = blase;
+  }
+  blase.lastChild.textContent += teil;
+  verlaufEl.scrollTop = verlaufEl.scrollHeight;
+}
+
+function merkeNotizAusText(text) {
+  const t = (text || "").toLowerCase();
+  if (/(bewegung|sport|spazier|gymnastik|fit)/.test(t)) merkeNotiz("Interessiert sich für Bewegung.");
+  if (/(gedächtnis|merken|vergess|gehirn|rätsel)/.test(t)) merkeNotiz("Interessiert sich für Gedächtnistraining.");
+  if (/(essen|ernährung|kochen|rezept)/.test(t)) merkeNotiz("Interessiert sich für Ernährung.");
+  if (/(handy|computer|internet|whatsapp|technik)/.test(t)) merkeNotiz("Wünscht sich Hilfe mit Technik.");
+}
+
+async function starteLiveGespraech() {
+  document.getElementById("mikro-fehler").classList.add("versteckt");
+  knopfGespraech.disabled = true;
+  setStatus("Einen Moment, ich stelle die Verbindung her …");
+  liveNutzerBlase = liveCoachBlase = null;
+  liveCoachText = ""; liveNutzerPuffer = ""; liveVerabschiedet = false;
+
+  try {
+    await GeminiLive.verbinde({
+      apiKey: KONFIG.gemini.apiKey,
+      modell: KONFIG.gemini.modell,
+      stimme: KONFIG.gemini.stimme,
+      systemPrompt: Coach.systemPrompt() +
+        " Wenn sich die Person verabschiedet, verabschiede dich herzlich und beende deine Antwort mit den Worten: Auf Wiedersehen!",
+      onNutzerText: t => { liveCoachBlase = null; liveNutzerPuffer += t; liveText("nutzer", t); },
+      onKiText: t => { liveNutzerBlase = null; liveCoachText += t; liveText("coach", t); },
+      onRundeEnde: () => {
+        liveCoachBlase = null;
+        if (/auf wiedersehen/i.test(liveCoachText)) liveVerabschiedet = true;
+        liveCoachText = "";
+        merkeNotizAusText(liveNutzerPuffer);
+        liveNutzerPuffer = "";
+      },
+      onUnterbrochen: () => { liveCoachBlase = null; },
+      onSprechenStart: () => { setKreis("spricht"); setStatus(""); },
+      onSprechenEnde: () => {
+        if (!gespraechAktiv) return;
+        if (liveVerabschiedet) { beendeGespraech(); return; }
+        setKreis("hoert");
+        setStatus("Ich höre zu … sprechen Sie einfach.");
+      },
+      onFehler: text => setStatus(text),
+      onEnde: () => { if (gespraechAktiv) beendeGespraech(); }
+    });
+  } catch (e) {
+    knopfGespraech.disabled = false;
+    setStatus("");
+    zeigeMikroFehler(e.name === "NotAllowedError" || /mikrofon/i.test(e.message)
+      ? "Ich darf Ihr Mikrofon nicht verwenden. Bitte erlauben Sie den Mikrofon-Zugriff oben in Ihrem Browser und versuchen Sie es erneut."
+      : "Die Verbindung zum Sprachdienst hat nicht geklappt: " + e.message);
+    return;
+  }
+
+  knopfGespraech.disabled = false;
+  liveModus = true;
+  gespraechAktiv = true;
+  knopfGespraech.textContent = "🛑 Gespräch beenden";
+  knopfGespraech.classList.add("stop");
+  knopfWiederholen.disabled = false;
+  starteZeitmesser();
+  setKreis("hoert");
+  setStatus("Verbunden – sprechen Sie einfach.");
+  document.getElementById("seitenpanel").classList.add("offen");
+  document.getElementById("panel-schalter").textContent = "✕ Schließen";
+  GeminiLive.sendeText(nutzer
+    ? "[Das Gespräch beginnt. Begrüße " + nutzer.name + " herzlich und frage, worüber er oder sie heute sprechen möchte.]"
+    : "[Das Gespräch beginnt. Begrüße die Person herzlich, stelle dich als ihr persönlicher Begleiter vor und frage nach ihrem Namen.]");
+}
+
+function starteGespraech() {
+  if (Kontingent.verfuegbareSek() <= 0) { kontingentErschoepft(); return; }
+  if (geminiSchluessel()) { starteLiveGespraech(); return; }   // Standard: Gemini Live
+  if (!ErkennungsKlasse) {
+    zeigeMikroFehler("Ihr Browser unterstützt die Spracherkennung leider nicht. Bitte verwenden Sie Google Chrome, Microsoft Edge oder Safari.");
+    return;
+  }
+  document.getElementById("mikro-fehler").classList.add("versteckt");
+  erkennungsFehler = 0;
+  gespraechAktiv = true;
+  knopfGespraech.textContent = "🛑 Gespräch beenden";
+  knopfGespraech.classList.add("stop");
+  knopfWiederholen.disabled = false;
+  starteZeitmesser();
+
+  const text = begruessungsText();
+  zeigeBlase("coach", text);
+  TTS.sprich(text, hoereZu);
+}
+
+function beendeGespraech(stumm) {
+  gespraechAktiv = false;
+  if (liveModus) { GeminiLive.trenne(); liveModus = false; }
+  TTS.stopp();
+  if (erkennung) { try { erkennung.abort(); } catch (e) {} erkennung = null; }
+  stoppeZeitmesser();
+  setKreis("");
+  knopfGespraech.textContent = "🎤 Gespräch beginnen";
+  knopfGespraech.classList.remove("stop");
+  knopfWiederholen.disabled = true;
+  if (!stumm) setStatus("Das Gespräch ist beendet. Drücken Sie den grünen Knopf, wenn Sie weitersprechen möchten.");
+  aktualisiereKontingentAnzeige();
+}
+
+function hoereZu() {
+  if (!gespraechAktiv) return;
+  if (Kontingent.verfuegbareSek() <= 0) { kontingentErschoepft(); return; }
+  if (erkennung) { try { erkennung.abort(); } catch (e) {} erkennung = null; }
+
+  erkennung = new ErkennungsKlasse();
+  erkennung.lang = "de-DE";
+  erkennung.interimResults = false;
+  erkennung.maxAlternatives = 1;
+
+  setKreis("hoert");
+  setStatus("Ich höre zu … sprechen Sie einfach.");
+
+  let hatErgebnis = false;
+
+  erkennung.onresult = async (ereignis) => {
+    hatErgebnis = true;
+    erkennungsFehler = 0;
+    const text = ereignis.results[0][0].transcript.trim();
+    if (!text) { hoereZu(); return; }
+    zeigeBlase("nutzer", text);
+    setKreis("");
+    setStatus("Einen Moment, ich überlege …");
+    const antwort = await Coach.antworte(text);
+    if (!gespraechAktiv) return;
+    zeigeBlase("coach", antwort);
+    setStatus("");
+    const verabschiedet = /(auf wiedersehen!)$/i.test(antwort.trim());
+    TTS.sprich(antwort, () => {
+      if (verabschiedet) { beendeGespraech(); return; }
+      hoereZu();
+    });
+  };
+
+  erkennung.onerror = (ereignis) => {
+    setKreis("");
+    if (ereignis.error === "not-allowed" || ereignis.error === "service-not-allowed") {
+      zeigeMikroFehler("Ich darf Ihr Mikrofon nicht verwenden. Bitte erlauben Sie den Mikrofon-Zugriff oben in Ihrem Browser und versuchen Sie es erneut.");
+      beendeGespraech(true);
+      setStatus("Mikrofon-Zugriff wurde nicht erlaubt.");
+    } else if (ereignis.error === "audio-capture") {
+      erkennungsFehler = 99;
+      zeigeMikroFehler("Es wurde kein Mikrofon gefunden. Bitte schließen Sie ein Mikrofon an oder prüfen Sie Ihre Einstellungen.");
+      beendeGespraech(true);
+      setStatus("Kein Mikrofon gefunden.");
+    } else if (ereignis.error === "no-speech") {
+      // wird von onend behandelt
+    } else if (gespraechAktiv) {
+      erkennungsFehler++;
+      setStatus("Ich habe Sie leider nicht verstanden. Ich höre weiter zu …");
+    }
+  };
+
+  erkennung.onend = () => {
+    if (!gespraechAktiv) return;
+    if (erkennungsFehler >= 3) {
+      beendeGespraech(true);
+      zeigeMikroFehler("Die Spracherkennung klappt gerade leider nicht – bitte prüfen Sie Mikrofon und Internetverbindung und versuchen Sie es später erneut.");
+      setStatus("Das Gespräch wurde beendet.");
+      return;
+    }
+    if (!hatErgebnis && !TTS.sprichtGerade()) {
+      setStatus("Ich höre weiter zu … sprechen Sie einfach, wenn Sie mögen.");
+      setTimeout(() => { if (gespraechAktiv && !TTS.sprichtGerade()) hoereZu(); }, 400);
+    }
+  };
+
+  try { erkennung.start(); }
+  catch (e) { setStatus("Die Spracherkennung konnte nicht starten. Bitte laden Sie die Seite neu."); }
+}
+
+function zeigeMikroFehler(text) {
+  const el = document.getElementById("mikro-fehler");
+  el.textContent = text;
+  el.classList.remove("versteckt");
+}
+
+/* ============================ Zeitmesser & Kontingent-Anzeige ============================ */
+function starteZeitmesser() {
+  zeitMesserIntervall = setInterval(() => {
+    Kontingent.addiere(5);
+    aktualisiereKontingentAnzeige();
+    if (Kontingent.verfuegbareSek() <= 0) kontingentErschoepft();
+  }, 5000);
+}
+function stoppeZeitmesser() {
+  if (zeitMesserIntervall) { clearInterval(zeitMesserIntervall); zeitMesserIntervall = null; }
+}
+
+function kontingentErschoepft() {
+  beendeGespraech(true);
+  if (erschoepftGemeldet) {
+    setStatus(nutzer ? "Ihre Gesprächszeit für heute ist aufgebraucht – morgen geht es kostenlos weiter." : "Ihre kostenlose Zeit ist aufgebraucht – melden Sie sich kostenlos an.");
+    return;
+  }
+  erschoepftGemeldet = true;
+  let text;
+  if (Kontingent.istMitglied()) {
+    text = "Ihre Gesprächszeit für heute ist aufgebraucht, " + nutzer.name + ". " +
+      "Morgen um Mitternacht beginnt Ihr neues Tageskontingent – ich freue mich auf Sie!";
+    setStatus("Tageskontingent aufgebraucht – morgen geht es weiter.");
+    TTS.sprich(text);
+  } else if (nutzer) {
+    text = "Ihre kostenlose Gesprächszeit für heute ist aufgebraucht, " + nutzer.name + ". " +
+      "Morgen können wir kostenlos weitersprechen – oder Sie laden ein Minuten-Paket auf bzw. wählen die Mitgliedschaft „Begleiter“ mit 30 Minuten pro Tag.";
+    setStatus("Tageszeit aufgebraucht – morgen geht es kostenlos weiter.");
+    zeigeAnsichtNachSprache("abo", text);
+  } else {
+    text = "Unsere kostenlose Kennenlern-Zeit ist nun leider vorbei. " +
+      "Wenn Sie sich kostenlos anmelden, bekommen Sie jeden Tag 15 Minuten Gesprächszeit – und ich kann mir merken, was Ihnen wichtig ist. " +
+      "Die Anmeldung dauert nur eine Minute.";
+    setStatus("Kostenlose Zeit aufgebraucht – melden Sie sich kostenlos an.");
+    zeigeAnsichtNachSprache("registrieren", text);
+  }
+  zeigeBlase("coach", text);
+}
+
+function zeigeAnsichtNachSprache(ziel, text) {
+  TTS.sprich(text, () => zeigeAnsicht(ziel));
+}
+
+function aktualisiereKontingentAnzeige() {
+  const limit = Kontingent.limitSek();
+  const textEl = document.getElementById("kontingent-text");
+  const fuellung = document.getElementById("kontingent-fuellung");
+  const aufruf = document.getElementById("kontingent-aufruf");
+  if (Kontingent.verfuegbareSek() > 0) erschoepftGemeldet = false;
+  const d = Kontingent.daten();
+  const verbrauchtTag = nutzer ? Math.min(limit, d.tagesSek) : Math.min(limit, d.gesamtSek);
+  const restTagMin = Math.ceil((limit - verbrauchtTag) / 60);
+  const prepaidMin = Math.floor(Kontingent.prepaidSek() / 60);
+  const prozent = Math.min(100, Math.round(verbrauchtTag / limit * 100));
+  document.getElementById("kontingent-balken").setAttribute("aria-valuenow", prozent);
+  const guthabenText = prepaidMin > 0 ? " Dazu " + prepaidMin + " Minuten aufgeladenes Guthaben." : "";
+  textEl.textContent = (Kontingent.istMitglied()
+    ? "Heute noch etwa " + restTagMin + " von " + Math.round(limit / 60) + " Minuten übrig (Mitgliedschaft „" + nutzer.abo + "“)."
+    : nutzer
+      ? "Heute noch etwa " + restTagMin + " von " + Math.round(limit / 60) + " kostenlosen Minuten übrig."
+      : "Noch etwa " + restTagMin + " von " + Math.round(limit / 60) + " kostenlosen Kennenlern-Minuten übrig.") + guthabenText;
+  fuellung.style.width = prozent + "%";
+  aufruf.classList.toggle("versteckt", !( !nutzer && prozent >= 50 ));
+}
+
+/* ============================ Registrierung & Profil ============================ */
+document.getElementById("formular-registrieren").addEventListener("submit", e => {
+  e.preventDefault();
+  const interessen = Array.from(document.querySelectorAll("#formular-registrieren input[type=checkbox]:checked")).map(c => c.value);
+  nutzer = {
+    name: document.getElementById("feld-name").value.trim(),
+    email: document.getElementById("feld-email").value.trim(),
+    alter: document.getElementById("feld-alter").value,
+    interessen: interessen,
+    abo: "Schnuppern"
+  };
+  Speicher.speichere("nutzer", nutzer);
+  aktualisiereNutzerAnzeige();
+  zeigeAnsicht("home");
+  const text = "Wunderbar, " + nutzer.name + "! Ihr Konto ist angelegt. Ab jetzt haben Sie jeden Tag " +
+    KONFIG.gratisMinutenMitKonto + " Minuten Gesprächszeit, und ich merke mir, was Ihnen wichtig ist. " +
+    "Drücken Sie den grünen Knopf, wann immer Sie sprechen möchten.";
+  zeigeBlase("coach", text);
+  TTS.sprich(text);
+});
+
+function aktualisiereNutzerAnzeige() {
+  const navReg = document.getElementById("nav-registrieren");
+  const navProfil = document.getElementById("nav-profil");
+  const fussStatus = document.getElementById("fuss-status");
+  if (nutzer) {
+    navReg.classList.add("versteckt");
+    navProfil.classList.remove("versteckt");
+    fussStatus.textContent = "Angemeldet als " + nutzer.name + (nutzer.abo && nutzer.abo !== "Schnuppern" ? " · Mitgliedschaft: " + nutzer.abo : "");
+    document.getElementById("begruessung-titel").textContent = "Schön, dass Sie da sind, " + nutzer.name + "!";
+    const inhalt = document.getElementById("profil-inhalt");
+    inhalt.innerHTML = "";
+    const zeilen = [
+      ["Name", nutzer.name],
+      ["E-Mail", nutzer.email],
+      ["Alter", nutzer.alter || "keine Angabe"],
+      ["Interessen", nutzer.interessen.length ? nutzer.interessen.join(", ") : "keine Angabe"],
+      ["Mitgliedschaft", nutzer.abo || "Schnuppern"]
+    ];
+    zeilen.forEach(([bez, wert]) => {
+      const p = document.createElement("p");
+      const b = document.createElement("strong");
+      b.textContent = bez + ": ";
+      p.appendChild(b);
+      p.appendChild(document.createTextNode(wert));
+      inhalt.appendChild(p);
+    });
+    const notizenEl = document.getElementById("profil-notizen");
+    notizenEl.innerHTML = "";
+    if (notizen.length) {
+      notizen.forEach(n => {
+        const p = document.createElement("p");
+        p.textContent = "• " + n;
+        notizenEl.appendChild(p);
+      });
+    } else {
+      const p = document.createElement("p");
+      p.className = "hinweis";
+      p.innerHTML = "<em>Noch keine Notizen vorhanden.</em>";
+      notizenEl.appendChild(p);
+    }
+  } else {
+    document.getElementById("profil-inhalt").innerHTML = "";
+    document.getElementById("profil-notizen").innerHTML = "";
+    navReg.classList.remove("versteckt");
+    navProfil.classList.add("versteckt");
+    fussStatus.textContent = "Nicht angemeldet";
+    document.getElementById("begruessung-titel").textContent = "Schön, dass Sie da sind!";
+  }
+  aktualisiereKontingentAnzeige();
+}
+
+document.getElementById("knopf-abmelden").addEventListener("click", () => {
+  if (!confirm("Möchten Sie sich wirklich abmelden? Ihre Daten auf diesem Gerät werden gelöscht.")) return;
+  nutzer = null; notizen = [];
+  Speicher.entferne("nutzer");
+  Speicher.entferne("notizen");
+  Speicher.entferne("kontingent");
+  aktualisiereNutzerAnzeige();
+  zeigeAnsicht("home");
+});
+
+/* ============================ Prepaid-Aufladung (Mock) ============================ */
+document.addEventListener("click", e => {
+  const knopf = e.target.closest("[data-prepaid]");
+  if (!knopf) return;
+  const minuten = parseInt(knopf.dataset.prepaid, 10);
+  Kontingent.ladePrepaidAuf(minuten);
+  const bestaetigung = document.getElementById("abo-bestaetigung");
+  document.getElementById("abo-bestaetigung-text").textContent =
+    minuten + " Minuten wurden Ihrem Guthaben gutgeschrieben" +
+    (nutzer ? ", " + nutzer.name : "") + ". Das Guthaben verfällt nicht am Tagesende.";
+  bestaetigung.classList.remove("versteckt");
+  erschoepftGemeldet = false;
+  aktualisiereKontingentAnzeige();
+});
+
+/* ============================ Abo-Auswahl (Mock) ============================ */
+document.addEventListener("click", e => {
+  const knopf = e.target.closest("[data-abo]");
+  if (!knopf) return;
+  const abo = knopf.dataset.abo;
+  if (!nutzer) {
+    alert("Bitte legen Sie zuerst ein kostenloses Konto an – dann können Sie eine Mitgliedschaft wählen.");
+    zeigeAnsicht("registrieren");
+    return;
+  }
+  nutzer.abo = abo;
+  Speicher.speichere("nutzer", nutzer);
+  const bestaetigung = document.getElementById("abo-bestaetigung");
+  document.getElementById("abo-bestaetigung-text").textContent =
+    "Ihre Mitgliedschaft „" + abo + "“ ist eingerichtet, " + nutzer.name + ". Sie haben jetzt " +
+    (KONFIG.aboMinutenProTag[abo] || 60) + " Minuten Gesprächszeit pro Tag.";
+  bestaetigung.classList.remove("versteckt");
+  aktualisiereNutzerAnzeige();
+});
+
+/* ============================ Start ============================ */
+knopfGespraech.addEventListener("click", () => {
+  if (gespraechAktiv) beendeGespraech();
+  else starteGespraech();
+});
+knopfWiederholen.addEventListener("click", () => {
+  if (liveModus && gespraechAktiv) {
+    GeminiLive.sendeText("[Bitte wiederhole deine letzte Antwort noch einmal, langsam und deutlich.]");
+    return;
+  }
+  if (!TTS.letzterText) return;
+  if (erkennung) { try { erkennung.abort(); } catch (e) {} erkennung = null; }
+  TTS.sprich(TTS.letzterText, () => { if (gespraechAktiv) hoereZu(); });
+});
+
+TTS.init();
+Avatar.init();
+aktualisiereNutzerAnzeige();
+setStatus(geminiSchluessel() || ErkennungsKlasse
+  ? "Drücken Sie den grünen Knopf, um zu beginnen."
+  : "Hinweis: Bitte öffnen Sie diese Seite in Google Chrome, Microsoft Edge oder Safari, damit die Sprachfunktion funktioniert.");
+</script>
+
+<script>
+/* tkai — dezente Scroll-Einblendungen (respektiert "reduzierte Bewegung", ohne JS unveraendert) */
+(function () {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+  var st = document.createElement("style");
+  st.textContent = ".tk-reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}.tk-reveal.tk-on{opacity:1;transform:none}";
+  document.head.appendChild(st);
+  var groups = document.querySelectorAll("section");
+  if (!groups.length) groups = document.querySelectorAll("main > *");
+  var els = [];
+  Array.prototype.forEach.call(groups, function (group) {
+    var i = 0;
+    Array.prototype.forEach.call(group.children, function (child) {
+      var tag = child.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE") return;
+      if (child.offsetParent === null && getComputedStyle(child).position !== "fixed") return; // versteckte Elemente (z. B. App-Ansichten) nicht anfassen
+      if (child.classList.contains("tk-reveal")) return;
+      child.classList.add("tk-reveal");
+      child.style.transitionDelay = Math.min(i * 70, 350) + "ms";
+      els.push(child);
+      i++;
+    });
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("tk-on"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
