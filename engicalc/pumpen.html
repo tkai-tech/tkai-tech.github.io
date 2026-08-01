@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pumpentechnik – EngiCalc</title>
+<meta name="description" content="Pumpenleistung, NPSH und Anlagenförderhöhe – interaktive Rechner mit Theorie.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EngiCalc">
+<meta property="og:title" content="Pumpentechnik – EngiCalc">
+<meta property="og:description" content="Pumpenleistung, NPSH und Anlagenförderhöhe – interaktive Rechner mit Theorie.">
+<meta property="og:url" content="https://engineering.tkai.tech/pumpen.html">
+<meta property="og:image" content="https://engineering.tkai.tech/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="logo" href="index.html"><span class="logo-icon"><svg
+  class="lucide lucide-settings"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" />
+</svg></span><span class="logo-text">Engi<span class="sub">Calc</span></span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="stroemung.html">Strömung</a>
+      <a href="waerme.html">Wärme</a>
+      <a href="festigkeit.html">Festigkeit</a>
+      <a href="maschinenelemente.html">Maschinenelemente</a>
+      <a href="pumpen.html" class="active">Pumpen</a>
+      <a href="akustik.html">Akustik</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <div class="crumb"><a href="index.html">Home</a> / Pumpentechnik</div>
+    <h1><svg
+  class="lucide lucide-fan"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z" />
+  <path d="M12 12v.01" />
+</svg> Pumpentechnik</h1>
+    <p>Leistungsbedarf, Förderhöhe der Anlage und Kavitationssicherheit (NPSH).</p>
+  </div>
+
+  <!-- ============ Pumpenleistung ============ -->
+  <div class="calc" id="leistung" data-calc="calcPumpe">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-zap"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" />
+</svg></div>
+      <div><h2>Pumpenleistung</h2><div class="hint">hydraulische Leistung und Wellenleistung</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Volumenstrom Q <span class="unit">[m³/h]</span></label><input id="pu_q" value="30"></div>
+            <div class="field"><label>Förderhöhe H <span class="unit">[m]</span></label><input id="pu_h" value="25"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Dichte ρ <span class="unit">[kg/m³]</span></label><input id="pu_rho" value="998"></div>
+            <div class="field"><label>Pumpen-η <span class="unit">[-] (0,6–0,85)</span></label><input id="pu_eta" value="0.7"></div>
+          </div>
+          <div class="field"><label>Motor-η <span class="unit">[-] (IE3 ≈ 0,93)</span></label><input id="pu_etam" value="0.93"></div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">hydraulische Leistung P_hyd</span><span class="rvalue" id="pu_phyd">–</span></div>
+            <div class="result-row big"><span class="rlabel">Wellenleistung P_W</span><span class="rvalue" id="pu_pw">–</span></div>
+            <div class="result-row"><span class="rlabel">el. Aufnahmeleistung P_el</span><span class="rvalue" id="pu_pel">–</span></div>
+            <div class="result-row"><span class="rlabel">Förderdruck Δp</span><span class="rvalue" id="pu_dp">–</span></div>
+          </div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Die an das Fluid übertragene (hydraulische) Leistung:
+          <div class="formula">P<sub>hyd</sub> = ρ · g · Q · H</div>
+          Wellen- und Elektroleistung über die Wirkungsgrade:
+          <div class="formula">P<sub>W</sub> = <span class="frac"><span>P<sub>hyd</sub></span><span>η<sub>P</sub></span></span> &nbsp;·&nbsp; P<sub>el</sub> = <span class="frac"><span>P<sub>W</sub></span><span>η<sub>M</sub></span></span></div>
+          <ul>
+            <li>Q in m³/s, H in m, g = 9,81 m/s²</li>
+            <li>η_P: Kreiselpumpen 0,6–0,85 (größenabhängig)</li>
+            <li>Δp = ρ·g·H (1 bar ≈ 10,2 m Wassersäule)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Förderhöhe ============ -->
+  <div class="calc" id="foerderhoehe" data-calc="calcFoerder">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-signal"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2 20h.01" />
+  <path d="M7 20v-4" />
+  <path d="M12 20v-8" />
+  <path d="M17 20V8" />
+  <path d="M22 4v16" />
+</svg></div>
+      <div><h2>Förderhöhe der Anlage</h2><div class="hint">geodätisch + Druckdifferenz + Verluste</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>geod. Höhendifferenz z <span class="unit">[m]</span></label><input id="fh_z" value="12"></div>
+            <div class="field"><label>Druckverlust Rohrnetz Δp_v <span class="unit">[bar]</span></label><input id="fh_dpv" value="0.8"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Druck Zielbehälter p₂ <span class="unit">[bar abs]</span></label><input id="fh_p2" value="1"></div>
+            <div class="field"><label>Druck Saugbehälter p₁ <span class="unit">[bar abs]</span></label><input id="fh_p1" value="1"></div>
+          </div>
+          <div class="field"><label>Dichte ρ <span class="unit">[kg/m³]</span></label><input id="fh_rho" value="998"></div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Anteil Höhe</span><span class="rvalue" id="fh_hz">–</span></div>
+            <div class="result-row"><span class="rlabel">Anteil Druckdifferenz</span><span class="rvalue" id="fh_hp">–</span></div>
+            <div class="result-row"><span class="rlabel">Anteil Verluste</span><span class="rvalue" id="fh_hv">–</span></div>
+            <div class="result-row big"><span class="rlabel">Förderhöhe H_A</span><span class="rvalue" id="fh_ha">–</span></div>
+          </div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Die Anlagenförderhöhe fasst alle Anteile zusammen, die die Pumpe überwinden muss:
+          <div class="formula">H<sub>A</sub> = z + <span class="frac"><span>p₂ − p₁</span><span>ρ · g</span></span> + <span class="frac"><span>Δp<sub>v</sub></span><span>ρ · g</span></span></div>
+          <ul>
+            <li>z – geodätische Höhendifferenz Saug- zu Druckseite</li>
+            <li>(p₂−p₁) – Druckdifferenz der Behälter (offen: 0)</li>
+            <li>Δp_v – Reibungsverluste (steigen quadratisch mit Q)</li>
+          </ul>
+          Der Betriebspunkt liegt im Schnittpunkt von Anlagen- und Pumpenkennlinie.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NPSH ============ -->
+  <div class="calc" id="npsh" data-calc="calcNPSH">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-bubbles"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7.001 15.085A1.5 1.5 0 0 1 9 16.5" />
+  <circle cx="18.5" cy="8.5" r="3.5" />
+  <circle cx="7.5" cy="16.5" r="5.5" />
+  <circle cx="7.5" cy="4.5" r="2.5" />
+</svg></div>
+      <div><h2>NPSH – Kavitationsprüfung</h2><div class="hint">vorhandener Haltedruck an der Saugseite</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Druck Saugbehälter p_e <span class="unit">[bar abs]</span></label><input id="np_pe" value="1.013"></div>
+            <div class="field"><label>Mediumtemp. <span class="unit">[°C] (für p_D Wasser)</span></label><input id="np_t" value="20"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Zulaufhöhe z_e <span class="unit">[m] (negativ = Saughöhe)</span></label><input id="np_z" value="-2"></div>
+            <div class="field"><label>Verlust Saugleitung h_v <span class="unit">[m]</span></label><input id="np_hv" value="0.5"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Dichte ρ <span class="unit">[kg/m³]</span></label><input id="np_rho" value="998"></div>
+            <div class="field"><label>NPSH_erf Pumpe <span class="unit">[m] (Datenblatt)</span></label><input id="np_erf" value="3"></div>
+          </div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Dampfdruck p_D (Wasser)</span><span class="rvalue" id="np_pd">–</span></div>
+            <div class="result-row big"><span class="rlabel">NPSH vorhanden</span><span class="rvalue" id="np_vorh">–</span></div>
+            <div class="result-row"><span class="rlabel">Reserve zu NPSH_erf + 0,5 m</span><span class="rvalue" id="np_res">–</span></div>
+            <div class="result-row"><span class="rlabel">Bewertung</span><span class="rvalue" id="np_check">–</span></div>
+          </div>
+          <div class="note">Dampfdruck wird für Wasser aus der Temperatur genähert (Antoine-Gleichung). Für andere Medien p_D manuell prüfen.</div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          NPSH (Net Positive Suction Head) = Abstand des Drucks am Laufradeintritt zum Dampfdruck:
+          <div class="formula">NPSH<sub>vorh</sub> = <span class="frac"><span>p<sub>e</sub> − p<sub>D</sub></span><span>ρ · g</span></span> + z<sub>e</sub> − h<sub>v</sub></div>
+          Kavitationsfreiheit erfordert:
+          <div class="formula">NPSH<sub>vorh</sub> ≥ NPSH<sub>erf</sub> + 0,5 m</div>
+          <ul>
+            <li>Kavitation = Dampfblasenbildung → Implosion → Materialabtrag, Lärm, Kennlinienabfall</li>
+            <li>Abhilfe: Zulaufhöhe erhöhen, Saugleitung kürzen/vergrößern, Medium kühlen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer"><svg
+  class="lucide lucide-triangle-alert"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg> Überschlägige Berechnung – ersetzt keine Herstellerauslegung.</div>
+</main>
+
+<footer class="site-footer">EngiCalc – Engineering- & Lernplattform
+<p class="tkai-endorsement">
+  Ein Produkt von <a href="https://tkai.tech" rel="noopener">tk<span>ai</span></a>
+</p>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/chatbot.js"></script>
+<script>
+// ---------- Pumpenleistung ----------
+function calcPumpe() {
+  const Q = val("pu_q") / 3600, H = val("pu_h"), rho = val("pu_rho");
+  const eta = val("pu_eta"), etam = val("pu_etam");
+  if (!(Q > 0 && H > 0 && rho > 0)) return;
+  const g = 9.81;
+  const Phyd = rho * g * Q * H; // W
+  out("pu_phyd", fmt(Phyd / 1000, 2) + " kW");
+  if (eta > 0) {
+    const Pw = Phyd / eta;
+    out("pu_pw", fmt(Pw / 1000, 2) + " kW");
+    if (etam > 0) out("pu_pel", fmt(Pw / etam / 1000, 2) + " kW");
+  }
+  out("pu_dp", fmt(rho * g * H / 1e5, 2) + " bar");
+}
+
+// ---------- Förderhöhe ----------
+function calcFoerder() {
+  const z = val("fh_z"), dpv = val("fh_dpv") * 1e5;
+  const p2 = val("fh_p2") * 1e5, p1 = val("fh_p1") * 1e5, rho = val("fh_rho");
+  if ([z, dpv, p2, p1].some(isNaN) || !(rho > 0)) return;
+  const g = 9.81;
+  const hp = (p2 - p1) / (rho * g);
+  const hv = dpv / (rho * g);
+  const HA = z + hp + hv;
+  out("fh_hz", fmt(z, 2) + " m");
+  out("fh_hp", fmt(hp, 2) + " m");
+  out("fh_hv", fmt(hv, 2) + " m");
+  out("fh_ha", fmt(HA, 2) + " m");
+}
+
+// ---------- NPSH ----------
+// Dampfdruck Wasser (Antoine, 1..100 °C), Ergebnis in Pa
+function pDampf(tC) {
+  const A = 8.07131, B = 1730.63, C = 233.426; // mmHg
+  const pmm = Math.pow(10, A - B / (C + tC));
+  return pmm * 133.322;
+}
+function calcNPSH() {
+  const pe = val("np_pe") * 1e5, t = val("np_t");
+  const z = val("np_z"), hv = val("np_hv"), rho = val("np_rho");
+  const erf = val("np_erf");
+  if ([pe, t, z, hv].some(isNaN) || !(rho > 0)) return;
+  const g = 9.81;
+  const pd = pDampf(t);
+  const vorh = (pe - pd) / (rho * g) + z - hv;
+  out("np_pd", fmt(pd / 100, 1) + " mbar");
+  out("np_vorh", fmt(vorh, 2) + " m");
+  if (!isNaN(erf)) {
+    const res = vorh - (erf + 0.5);
+    out("np_res", fmt(res, 2) + " m", res < 0 ? "bad" : "ok");
+    out("np_check", res >= 0 ? "kavitationssicher" : "Kavitationsgefahr!", res >= 0 ? "ok" : "bad");
+  }
+}
+</script>
+
+<script>
+/* tkai — dezente Scroll-Einblendungen (respektiert "reduzierte Bewegung", ohne JS unveraendert) */
+(function () {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+  var st = document.createElement("style");
+  st.textContent = ".tk-reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}.tk-reveal.tk-on{opacity:1;transform:none}";
+  document.head.appendChild(st);
+  var groups = document.querySelectorAll("section");
+  if (!groups.length) groups = document.querySelectorAll("main > *");
+  var els = [];
+  Array.prototype.forEach.call(groups, function (group) {
+    var i = 0;
+    Array.prototype.forEach.call(group.children, function (child) {
+      var tag = child.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE") return;
+      if (child.offsetParent === null && getComputedStyle(child).position !== "fixed") return; // versteckte Elemente (z. B. App-Ansichten) nicht anfassen
+      if (child.classList.contains("tk-reveal")) return;
+      child.classList.add("tk-reveal");
+      child.style.transitionDelay = Math.min(i * 70, 350) + "ms";
+      els.push(child);
+      i++;
+    });
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("tk-on"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

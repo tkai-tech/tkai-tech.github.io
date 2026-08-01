@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maschinenelemente – EngiCalc</title>
+<meta name="description" content="Schrauben-, Press-, Passfeder- und Schweißnahtverbindungen – interaktive Rechner mit Theorie.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EngiCalc">
+<meta property="og:title" content="Maschinenelemente – EngiCalc">
+<meta property="og:description" content="Schrauben-, Press-, Passfeder- und Schweißnahtverbindungen – interaktive Rechner mit Theorie.">
+<meta property="og:url" content="https://engineering.tkai.tech/maschinenelemente.html">
+<meta property="og:image" content="https://engineering.tkai.tech/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="logo" href="index.html"><span class="logo-icon"><svg
+  class="lucide lucide-settings"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" />
+</svg></span><span class="logo-text">Engi<span class="sub">Calc</span></span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="stroemung.html">Strömung</a>
+      <a href="waerme.html">Wärme</a>
+      <a href="festigkeit.html">Festigkeit</a>
+      <a href="maschinenelemente.html" class="active">Maschinenelemente</a>
+      <a href="pumpen.html">Pumpen</a>
+      <a href="akustik.html">Akustik</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <div class="crumb"><a href="index.html">Home</a> / Maschinenelemente</div>
+    <h1><svg
+  class="lucide lucide-cog"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M11 10.27 7 3.34" />
+  <path d="m11 13.73-4 6.93" />
+  <path d="M12 22v-2" />
+  <path d="M12 2v2" />
+  <path d="M14 12h8" />
+  <path d="m17 20.66-1-1.73" />
+  <path d="m17 3.34-1 1.73" />
+  <path d="M2 12h2" />
+  <path d="m20.66 17-1.73-1" />
+  <path d="m20.66 7-1.73 1" />
+  <path d="m3.34 17 1.73-1" />
+  <path d="m3.34 7 1.73 1" />
+  <circle cx="12" cy="12" r="2" />
+  <circle cx="12" cy="12" r="8" />
+</svg> Maschinenelemente</h1>
+    <p>Auslegung von Verbindungselementen: Schrauben, Pressverbindungen, Passfedern und Schweißnähte.</p>
+  </div>
+
+  <!-- ============ Schraube ============ -->
+  <div class="calc" id="schraube" data-calc="calcSchraube">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-wrench"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" />
+</svg></div>
+      <div><h2>Schraubenverbindung</h2><div class="hint">Vorspannkraft und Anziehmoment (überschlägig)</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Gewinde</label>
+              <select id="sc_gew">
+                <option value="M6">M6</option><option value="M8">M8</option>
+                <option value="M10" selected>M10</option><option value="M12">M12</option>
+                <option value="M16">M16</option><option value="M20">M20</option><option value="M24">M24</option>
+              </select>
+            </div>
+            <div class="field"><label>Festigkeitsklasse</label>
+              <select id="sc_fk">
+                <option value="640">8.8</option><option value="900">10.9</option><option value="1080">12.9</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Ausnutzung ν <span class="unit">[-] (üblich 0,9)</span></label><input id="sc_nu" value="0.9"></div>
+            <div class="field"><label>Reibwert μ_ges <span class="unit">[-] (geölt 0,12)</span></label><input id="sc_mu" value="0.12"></div>
+          </div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Spannungsquerschnitt A_s</span><span class="rvalue" id="sc_as">–</span></div>
+            <div class="result-row big"><span class="rlabel">Vorspannkraft F_V</span><span class="rvalue" id="sc_fv">–</span></div>
+            <div class="result-row big"><span class="rlabel">Anziehmoment M_A</span><span class="rvalue" id="sc_ma">–</span></div>
+            <div class="result-row"><span class="rlabel">übertragbare Querkraft je Fuge (μ=0,15)</span><span class="rvalue" id="sc_fq">–</span></div>
+          </div>
+          <div class="note">Überschlägige Werte nach vereinfachtem Verfahren. Für kritische Verbindungen: systematische Berechnung nach VDI 2230.</div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Beim Anziehen wirken Zug- und Torsionsspannung gleichzeitig. Die Vorspannkraft wird so gewählt,
+          dass die Vergleichsspannung ca. 90 % der Streckgrenze erreicht:
+          <div class="formula">σ<sub>red</sub> = <span class="sqrt"><span>σ² + 3·τ²</span></span> = ν · R<sub>p0,2</sub></div>
+          Das Anziehmoment:
+          <div class="formula">M<sub>A</sub> = F<sub>V</sub> · ( 0,16·P + μ·( 0,58·d₂ + <span class="frac"><span>D<sub>km</sub></span><span>2</span></span> ) )</div>
+          <ul>
+            <li>P – Gewindesteigung, d₂ – Flankendurchmesser</li>
+            <li>D<sub>km</sub> – mittlerer Kopfauflagedurchmesser</li>
+            <li>μ – Reibwert Gewinde/Kopf (geölt ≈ 0,12)</li>
+          </ul>
+          Reibschluss: <span class="fml-inline">F<sub>Q</sub> = F<sub>V</sub> · μ<sub>T</sub></span> je Trennfuge.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Pressverbindung ============ -->
+  <div class="calc" id="pressverbindung" data-calc="calcPress">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-circle-dot"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <circle cx="12" cy="12" r="1" />
+</svg></div>
+      <div><h2>Zylindrische Pressverbindung</h2><div class="hint">übertragbares Moment aus Fugendruck</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Fugendurchmesser d_F <span class="unit">[mm]</span></label><input id="pr_d" value="50"></div>
+            <div class="field"><label>Nabenlänge L <span class="unit">[mm]</span></label><input id="pr_l" value="60"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Fugendruck p <span class="unit">[N/mm²]</span></label><input id="pr_p" value="40"></div>
+            <div class="field"><label>Haftbeiwert μ <span class="unit">[-] (trocken 0,15)</span></label><input id="pr_mu" value="0.15"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Sicherheit S_r <span class="unit">[-] (gegen Rutschen)</span></label><input id="pr_s" value="1.5"></div>
+            <div class="field"><label>Betriebsmoment M_t <span class="unit">[Nm]</span></label><input id="pr_mt" value="500"></div>
+          </div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Fugenfläche A_F</span><span class="rvalue" id="pr_af">–</span></div>
+            <div class="result-row big"><span class="rlabel">max. übertragbares Moment</span><span class="rvalue" id="pr_mmax">–</span></div>
+            <div class="result-row"><span class="rlabel">zulässig mit Sicherheit S_r</span><span class="rvalue" id="pr_mzul">–</span></div>
+            <div class="result-row"><span class="rlabel">Bewertung</span><span class="rvalue" id="pr_check">–</span></div>
+            <div class="result-row"><span class="rlabel">übertragbare Axialkraft</span><span class="rvalue" id="pr_fax">–</span></div>
+          </div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Der Fugendruck p presst Welle und Nabe aufeinander; Reibung überträgt das Moment:
+          <div class="formula">M<sub>max</sub> = <span class="frac"><span>p · μ · π · d<sub>F</sub>² · L</span><span>2</span></span></div>
+          <div class="formula">F<sub>ax,max</sub> = p · μ · π · d<sub>F</sub> · L</div>
+          <ul>
+            <li>p entsteht durch das Übermaß (Lamé-Gleichungen)</li>
+            <li>μ: trocken gefügt ≈ 0,15–0,2, geölt ≈ 0,08–0,12</li>
+            <li>Nachweis: M_t ≤ M_max / S_r mit S_r ≈ 1,5–2</li>
+          </ul>
+          Zusätzlich muss die Nabe die Tangentialspannung ertragen (nicht Teil dieses Rechners).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Passfeder ============ -->
+  <div class="calc" id="passfeder" data-calc="calcPassfeder">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-key"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" />
+  <path d="m21 2-9.6 9.6" />
+  <circle cx="7.5" cy="15.5" r="5.5" />
+</svg></div>
+      <div><h2>Passfederverbindung</h2><div class="hint">Flächenpressung nach DIN 6885 (Form A)</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Wellendurchmesser d <span class="unit">[mm]</span></label><input id="pf_d" value="40"></div>
+            <div class="field"><label>Drehmoment M_t <span class="unit">[Nm]</span></label><input id="pf_mt" value="200"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Passfederhöhe h <span class="unit">[mm]</span> (d=40: h=8)</label><input id="pf_h" value="8"></div>
+            <div class="field"><label>tragende Länge l_tr <span class="unit">[mm]</span></label><input id="pf_l" value="50"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Anzahl Passfedern <span class="unit">[-]</span></label><input id="pf_n" value="1"></div>
+            <div class="field"><label>p_zul <span class="unit">[N/mm²]</span> (Stahlnabe ≈ 120)</label><input id="pf_pzul" value="120"></div>
+          </div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Umfangskraft F_u</span><span class="rvalue" id="pf_fu">–</span></div>
+            <div class="result-row big"><span class="rlabel">Flächenpressung p</span><span class="rvalue" id="pf_p">–</span></div>
+            <div class="result-row"><span class="rlabel">Ausnutzung</span><span class="rvalue" id="pf_ausn">–</span></div>
+            <div class="result-row"><span class="rlabel">erf. tragende Länge</span><span class="rvalue" id="pf_lerf">–</span></div>
+          </div>
+          <div class="note">Bei 2 Passfedern trägt real nur ≈ 75 % (Tragfaktor 1,5 statt 2). Rundstirnige Form A: l_tr = l − b.</div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Maßgebend ist die Flächenpressung an der Nabennutflanke:
+          <div class="formula">p = <span class="frac"><span>2 · M<sub>t</sub></span><span>d · h′ · l<sub>tr</sub> · n·φ</span></span> ≤ p<sub>zul</sub></div>
+          <ul>
+            <li>h′ ≈ 0,45·h – tragende Höhe der Nutflanke</li>
+            <li>l<sub>tr</sub> – tragende Länge (bei Form A: l − b)</li>
+            <li>n·φ – wirksame Anzahl (2 Federn: φ = 0,75)</li>
+            <li>p_zul: GG-Nabe ≈ 80, Stahl ≈ 120–150 N/mm²</li>
+          </ul>
+          Bei stoßhaftem Betrieb p_zul entsprechend abmindern.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Schweißnaht ============ -->
+  <div class="calc" id="schweissnaht" data-calc="calcSchweiss">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-zap"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" />
+</svg></div>
+      <div><h2>Kehlnaht unter Zug/Schub</h2><div class="hint">vereinfachter Spannungsnachweis</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Kraft F <span class="unit">[kN]</span></label><input id="sw_f" value="50"></div>
+            <div class="field"><label>Beanspruchung</label>
+              <select id="sw_art"><option value="1">Zug (senkrecht zur Naht)</option><option value="0.65">Schub (längs zur Naht)</option></select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Nahtdicke a <span class="unit">[mm]</span></label><input id="sw_a" value="4"></div>
+            <div class="field"><label>Gesamt-Nahtlänge l_w <span class="unit">[mm]</span></label><input id="sw_l" value="200"></div>
+          </div>
+          <div class="field"><label>zul. Schweißnahtspannung σ_w,zul <span class="unit">[N/mm²]</span> (S235 statisch ≈ 100–135)</label><input id="sw_szul" value="115"></div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Nahtfläche A_w</span><span class="rvalue" id="sw_aw">–</span></div>
+            <div class="result-row big"><span class="rlabel">Nahtspannung σ_w</span><span class="rvalue" id="sw_s">–</span></div>
+            <div class="result-row"><span class="rlabel">Ausnutzung</span><span class="rvalue" id="sw_ausn">–</span></div>
+            <div class="result-row"><span class="rlabel">erf. Nahtlänge bei a</span><span class="rvalue" id="sw_lerf">–</span></div>
+          </div>
+          <div class="note">Mindestnahtdicke: a ≥ 3 mm und a ≥ √(t_max) − 0,5. Für tragende Bauteile: Nachweis nach EC3 erforderlich.</div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Die Spannung wird auf den rechnerischen Nahtquerschnitt bezogen:
+          <div class="formula">σ<sub>w</sub> = <span class="frac"><span>F</span><span>a · l<sub>w</sub></span></span> ≤ σ<sub>w,zul</sub></div>
+          <ul>
+            <li>a – Nahtdicke (Höhe des einbeschriebenen Dreiecks)</li>
+            <li>l<sub>w</sub> – wirksame Nahtlänge (ohne Endkrater)</li>
+            <li>Schubbeanspruchung wird mit Faktor ≈ 0,65 abgemindert</li>
+            <li>σ<sub>w,zul</sub> hängt von Werkstoff, Nahtgüte und Lastfall ab</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer"><svg
+  class="lucide lucide-triangle-alert"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg> Überschlägige Berechnung – für kritische Verbindungen VDI 2230 / Eurocode 3 anwenden.</div>
+</main>
+
+<footer class="site-footer">EngiCalc – Engineering- & Lernplattform
+<p class="tkai-endorsement">
+  Ein Produkt von <a href="https://tkai.tech" rel="noopener">tk<span>ai</span></a>
+</p>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/chatbot.js"></script>
+<script>
+// Gewindedaten: [A_s mm², P mm, d2 mm, Dkm mm]
+const GEWINDE = {
+  M6:  [20.1, 1.0, 5.35, 9],
+  M8:  [36.6, 1.25, 7.19, 11.5],
+  M10: [58.0, 1.5, 9.03, 14.5],
+  M12: [84.3, 1.75, 10.86, 16.5],
+  M16: [157, 2.0, 14.70, 22],
+  M20: [245, 2.5, 18.38, 27.7],
+  M24: [353, 3.0, 22.05, 33.2]
+};
+
+// ---------- Schraube ----------
+function calcSchraube() {
+  const g = GEWINDE[document.getElementById("sc_gew").value];
+  const rp = parseFloat(document.getElementById("sc_fk").value);
+  const nu = val("sc_nu"), mu = val("sc_mu");
+  if (!g || !(nu > 0 && mu > 0)) return;
+  const [As, P, d2, Dkm] = g;
+  // Torsionsanteil bei Montage berücksichtigen (vereinfachte sigma_red-Betrachtung)
+  const tanPhi = P / (Math.PI * d2);
+  const tanRho = mu / Math.cos(Math.PI / 6); // Gewindereibung, 60°-Flanke
+  const d0 = Math.sqrt(As * 4 / Math.PI);
+  const Wp = Math.PI * Math.pow(d0, 3) / 16;
+  // F_V so, dass sigma_red = nu * Rp
+  // sigma_red = sqrt(sigma^2 + 3*tau^2), sigma = F/As, tau = F*(d2/2)*(tanPhi+tanRho)/Wp
+  const kTau = (d2 / 2) * (tanPhi + tanRho) / Wp; // tau = kTau * F
+  const kSig = 1 / As;
+  const Fv = nu * rp / Math.sqrt(kSig * kSig + 3 * kTau * kTau);
+  const Ma = Fv * (0.16 * P + mu * (0.58 * d2 + Dkm / 2)); // Nmm
+  out("sc_as", fmt(As, 1) + " mm²");
+  out("sc_fv", fmt(Fv / 1000, 1) + " kN");
+  out("sc_ma", fmt(Ma / 1000, 1) + " Nm");
+  out("sc_fq", fmt(Fv * 0.15 / 1000, 1) + " kN");
+}
+
+// ---------- Pressverbindung ----------
+function calcPress() {
+  const d = val("pr_d"), L = val("pr_l"), p = val("pr_p"), mu = val("pr_mu");
+  const S = val("pr_s"), Mt = val("pr_mt");
+  if (!(d > 0 && L > 0 && p > 0 && mu > 0)) return;
+  const Af = Math.PI * d * L;                    // mm²
+  const Mmax = p * mu * Math.PI * d * d * L / 2; // Nmm
+  const Fax = p * mu * Math.PI * d * L;          // N
+  out("pr_af", fmt(Af / 100, 1) + " cm²");
+  out("pr_mmax", fmt(Mmax / 1e6, 2) + " kNm  (" + fmt(Mmax / 1000, 0) + " Nm)");
+  if (S > 0) {
+    const Mzul = Mmax / S;
+    out("pr_mzul", fmt(Mzul / 1000, 0) + " Nm");
+    if (Mt > 0) {
+      const okay = Mt * 1000 <= Mzul;
+      out("pr_check", okay ? "ausreichend" : "zu klein!", okay ? "ok" : "bad");
+    }
+  }
+  out("pr_fax", fmt(Fax / 1000, 1) + " kN");
+}
+
+// ---------- Passfeder ----------
+function calcPassfeder() {
+  const d = val("pf_d"), Mt = val("pf_mt") * 1000, h = val("pf_h");
+  const l = val("pf_l"), n = val("pf_n"), pzul = val("pf_pzul");
+  if (!(d > 0 && Mt > 0 && h > 0 && l > 0 && n > 0)) return;
+  const Fu = 2 * Mt / d;               // N
+  const hTr = 0.45 * h;
+  const phi = n >= 2 ? 0.75 : 1;
+  const p = Fu / (hTr * l * n * phi);
+  const ausn = pzul > 0 ? p / pzul : NaN;
+  out("pf_fu", fmt(Fu / 1000, 2) + " kN");
+  out("pf_p", fmt(p, 1) + " N/mm²");
+  out("pf_ausn", fmt(ausn * 100, 1) + " %", ausn > 1 ? "bad" : (ausn > 0.8 ? "warn" : "ok"));
+  if (pzul > 0) out("pf_lerf", fmt(Fu / (hTr * pzul * n * phi), 1) + " mm");
+}
+
+// ---------- Schweißnaht ----------
+function calcSchweiss() {
+  const F = val("sw_f") * 1000, fak = parseFloat(document.getElementById("sw_art").value);
+  const a = val("sw_a"), l = val("sw_l"), szul = val("sw_szul");
+  if (!(F > 0 && a > 0 && l > 0)) return;
+  const Aw = a * l;
+  const s = F / Aw / fak; // Schub: zul. Wert effektiv geringer -> Spannung/0,65 vergleichen
+  const ausn = szul > 0 ? s / szul : NaN;
+  out("sw_aw", fmt(Aw, 0) + " mm²");
+  out("sw_s", fmt(s, 1) + " N/mm² (bewertet)");
+  out("sw_ausn", fmt(ausn * 100, 1) + " %", ausn > 1 ? "bad" : (ausn > 0.8 ? "warn" : "ok"));
+  if (szul > 0) out("sw_lerf", fmt(F / (a * szul * fak), 0) + " mm");
+}
+</script>
+
+<script>
+/* tkai — dezente Scroll-Einblendungen (respektiert "reduzierte Bewegung", ohne JS unveraendert) */
+(function () {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+  var st = document.createElement("style");
+  st.textContent = ".tk-reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}.tk-reveal.tk-on{opacity:1;transform:none}";
+  document.head.appendChild(st);
+  var groups = document.querySelectorAll("section");
+  if (!groups.length) groups = document.querySelectorAll("main > *");
+  var els = [];
+  Array.prototype.forEach.call(groups, function (group) {
+    var i = 0;
+    Array.prototype.forEach.call(group.children, function (child) {
+      var tag = child.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE") return;
+      if (child.offsetParent === null && getComputedStyle(child).position !== "fixed") return; // versteckte Elemente (z. B. App-Ansichten) nicht anfassen
+      if (child.classList.contains("tk-reveal")) return;
+      child.classList.add("tk-reveal");
+      child.style.transitionDelay = Math.min(i * 70, 350) + "ms";
+      els.push(child);
+      i++;
+    });
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("tk-on"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

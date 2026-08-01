@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akustik – EngiCalc</title>
+<meta name="description" content="Schallpegel-Addition, Pegelabnahme, Schallleistung und Schalldruck – interaktive Rechner mit Theorie.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EngiCalc">
+<meta property="og:title" content="Akustik – EngiCalc">
+<meta property="og:description" content="Schallpegel-Addition, Pegelabnahme, Schallleistung und Schalldruck – interaktive Rechner mit Theorie.">
+<meta property="og:url" content="https://engineering.tkai.tech/akustik.html">
+<meta property="og:image" content="https://engineering.tkai.tech/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="logo" href="index.html"><span class="logo-icon"><svg
+  class="lucide lucide-settings"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" />
+</svg></span><span class="logo-text">Engi<span class="sub">Calc</span></span></a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="stroemung.html">Strömung</a>
+      <a href="waerme.html">Wärme</a>
+      <a href="festigkeit.html">Festigkeit</a>
+      <a href="maschinenelemente.html">Maschinenelemente</a>
+      <a href="pumpen.html">Pumpen</a>
+      <a href="akustik.html" class="active">Akustik</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <div class="crumb"><a href="index.html">Home</a> / Akustik</div>
+    <h1><svg
+  class="lucide lucide-audio-lines"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M2 10v3" />
+  <path d="M6 6v11" />
+  <path d="M10 3v18" />
+  <path d="M14 8v7" />
+  <path d="M18 5v13" />
+  <path d="M22 10v3" />
+</svg> Akustik</h1>
+    <p>Schallpegel mehrerer Quellen addieren, Pegelabnahme mit der Entfernung und Umrechnung
+       zwischen Schallleistung und Schalldruck.</p>
+  </div>
+
+  <!-- ============ Pegeladdition ============ -->
+  <div class="calc" id="pegeladdition" data-calc="calcPegel">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-plus"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="M12 5v14" />
+</svg></div>
+      <div><h2>Schallpegel-Addition</h2><div class="hint">bis zu 5 Quellen energetisch addieren</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Quelle 1 <span class="unit">[dB]</span></label><input id="pa_1" value="85"></div>
+            <div class="field"><label>Quelle 2 <span class="unit">[dB]</span></label><input id="pa_2" value="82"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Quelle 3 <span class="unit">[dB]</span> (leer = keine)</label><input id="pa_3" value="78"></div>
+            <div class="field"><label>Quelle 4 <span class="unit">[dB]</span></label><input id="pa_4" value=""></div>
+          </div>
+          <div class="field"><label>Quelle 5 <span class="unit">[dB]</span></label><input id="pa_5" value=""></div>
+          <div class="results">
+            <div class="result-row big"><span class="rlabel">Gesamtpegel L_ges</span><span class="rvalue" id="pa_ges">–</span></div>
+            <div class="result-row"><span class="rlabel">Erhöhung ggü. lautester Quelle</span><span class="rvalue" id="pa_plus">–</span></div>
+          </div>
+          <div class="note">Merkregel: 2 gleich laute Quellen → +3 dB · 10 gleich laute → +10 dB.</div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Schallpegel sind logarithmisch – addiert werden die Schallenergien, nicht die dB-Werte:
+          <div class="formula">L<sub>ges</sub> = 10 · lg( Σ 10<sup>Lᵢ/10</sup> )</div>
+          <ul>
+            <li>+3 dB = Verdopplung der Schallenergie</li>
+            <li>+10 dB = 10-fache Energie, empfunden „doppelt so laut"</li>
+            <li>Quellen, die &gt;10 dB leiser sind, tragen praktisch nichts bei</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Entfernung ============ -->
+  <div class="calc" id="entfernung" data-calc="calcEntfernung">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-radio-tower"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9" />
+  <path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" />
+  <circle cx="12" cy="9" r="2" />
+  <path d="M16.2 4.8c2 2 2.26 5.11.8 7.47" />
+  <path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1" />
+  <path d="M9.5 18h5" />
+  <path d="m8 22 4-11 4 11" />
+</svg></div>
+      <div><h2>Pegelabnahme mit der Entfernung</h2><div class="hint">Punkt- oder Linienquelle</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field"><label>Quellentyp</label>
+            <select id="en_typ"><option value="20">Punktquelle (Maschine) – 6 dB/Verdopplung</option>
+            <option value="10">Linienquelle (Straße) – 3 dB/Verdopplung</option></select>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Pegel L₁ bei r₁ <span class="unit">[dB]</span></label><input id="en_l1" value="90"></div>
+            <div class="field"><label>Bezugsabstand r₁ <span class="unit">[m]</span></label><input id="en_r1" value="1"></div>
+          </div>
+          <div class="field"><label>Zielabstand r₂ <span class="unit">[m]</span></label><input id="en_r2" value="25"></div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Pegelabnahme ΔL</span><span class="rvalue" id="en_dl">–</span></div>
+            <div class="result-row big"><span class="rlabel">Pegel L₂ bei r₂</span><span class="rvalue" id="en_l2">–</span></div>
+          </div>
+          <div class="note">Freifeldbedingungen – Reflexionen, Hindernisse und Luftabsorption nicht berücksichtigt. Vergleich TA-Lärm: Wohngebiet tags 55 / nachts 40 dB(A).</div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Bei kugelförmiger Ausbreitung verteilt sich die Schallenergie auf immer größere Flächen:
+          <div class="formula">Punktquelle:&nbsp; L₂ = L₁ − 20 · lg <span class="frac"><span>r₂</span><span>r₁</span></span></div>
+          <div class="formula">Linienquelle:&nbsp; L₂ = L₁ − 10 · lg <span class="frac"><span>r₂</span><span>r₁</span></span></div>
+          <ul>
+            <li>Punktquelle: −6 dB je Abstandsverdopplung</li>
+            <li>Linienquelle: −3 dB je Verdopplung</li>
+            <li>gilt im Freifeld ohne Boden-/Wandreflexion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Schallleistung ============ -->
+  <div class="calc" id="schallleistung" data-calc="calcLeistung">
+    <div class="calc-head" onclick="toggleCalc(this)">
+      <div class="icon"><svg
+  class="lucide lucide-megaphone"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
+  <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" />
+  <path d="M8 6v8" />
+</svg></div>
+      <div><h2>Schallleistung ↔ Schalldruck</h2><div class="hint">Schalldruckpegel im Abstand r berechnen</div></div>
+      <div class="chev"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" />
+</svg></div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-grid">
+        <div>
+          <div class="field-row">
+            <div class="field"><label>Schallleistungspegel L_W <span class="unit">[dB]</span></label><input id="sl_lw" value="95"></div>
+            <div class="field"><label>Abstand r <span class="unit">[m]</span></label><input id="sl_r" value="10"></div>
+          </div>
+          <div class="field"><label>Aufstellung (Raumwinkel)</label>
+            <select id="sl_q">
+              <option value="1">frei im Raum (Kugel, Q=1)</option>
+              <option value="2" selected>auf Boden (Halbkugel, Q=2)</option>
+              <option value="4">an Wand + Boden (Q=4)</option>
+              <option value="8">in Raumecke (Q=8)</option>
+            </select>
+          </div>
+          <div class="results">
+            <div class="result-row"><span class="rlabel">Messflächenmaß</span><span class="rvalue" id="sl_ls">–</span></div>
+            <div class="result-row big"><span class="rlabel">Schalldruckpegel L_p</span><span class="rvalue" id="sl_lp">–</span></div>
+          </div>
+        </div>
+        <div class="theory">
+          <h4><svg
+  class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
+</svg> Theorie</h4>
+          Der Schallleistungspegel L<sub>W</sub> beschreibt die Quelle, der Schalldruckpegel L<sub>p</sub> das,
+          was im Abstand r ankommt:
+          <div class="formula">L<sub>p</sub> = L<sub>W</sub> − 10 · lg <span class="frac"><span>4·π·r²</span><span>Q</span></span></div>
+          <ul>
+            <li>Q – Richtwirkungsfaktor durch reflektierende Flächen</li>
+            <li>Maschine auf Boden: Q = 2 (Halbkugelausbreitung)</li>
+            <li>L<sub>W</sub> steht auf Typenschildern/Datenblättern (z. B. Ventilatoren)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer"><svg
+  class="lucide lucide-triangle-alert"
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" />
+</svg> Überschlägige Berechnung – für Genehmigungsverfahren ist eine Prognose nach TA Lärm / DIN ISO 9613-2 erforderlich.</div>
+</main>
+
+<footer class="site-footer">EngiCalc – Engineering- & Lernplattform
+<p class="tkai-endorsement">
+  Ein Produkt von <a href="https://tkai.tech" rel="noopener">tk<span>ai</span></a>
+</p>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/chatbot.js"></script>
+<script>
+// ---------- Pegeladdition ----------
+function calcPegel() {
+  let sum = 0, max = -Infinity, n = 0;
+  for (let i = 1; i <= 5; i++) {
+    const L = val("pa_" + i);
+    if (!isNaN(L)) { sum += Math.pow(10, L / 10); max = Math.max(max, L); n++; }
+  }
+  if (n === 0) return;
+  const Lges = 10 * Math.log10(sum);
+  out("pa_ges", fmt(Lges, 1) + " dB");
+  out("pa_plus", "+" + fmt(Lges - max, 1) + " dB");
+}
+
+// ---------- Entfernung ----------
+function calcEntfernung() {
+  const fak = parseFloat(document.getElementById("en_typ").value);
+  const L1 = val("en_l1"), r1 = val("en_r1"), r2 = val("en_r2");
+  if (isNaN(L1) || !(r1 > 0 && r2 > 0)) return;
+  const dL = fak * Math.log10(r2 / r1);
+  out("en_dl", "−" + fmt(dL, 1) + " dB");
+  out("en_l2", fmt(L1 - dL, 1) + " dB");
+}
+
+// ---------- Schallleistung ----------
+function calcLeistung() {
+  const Lw = val("sl_lw"), r = val("sl_r");
+  const Q = parseFloat(document.getElementById("sl_q").value);
+  if (isNaN(Lw) || !(r > 0)) return;
+  const Ls = 10 * Math.log10(4 * Math.PI * r * r / Q);
+  out("sl_ls", fmt(Ls, 1) + " dB");
+  out("sl_lp", fmt(Lw - Ls, 1) + " dB");
+}
+</script>
+
+<script>
+/* tkai — dezente Scroll-Einblendungen (respektiert "reduzierte Bewegung", ohne JS unveraendert) */
+(function () {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+  var st = document.createElement("style");
+  st.textContent = ".tk-reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}.tk-reveal.tk-on{opacity:1;transform:none}";
+  document.head.appendChild(st);
+  var groups = document.querySelectorAll("section");
+  if (!groups.length) groups = document.querySelectorAll("main > *");
+  var els = [];
+  Array.prototype.forEach.call(groups, function (group) {
+    var i = 0;
+    Array.prototype.forEach.call(group.children, function (child) {
+      var tag = child.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE") return;
+      if (child.offsetParent === null && getComputedStyle(child).position !== "fixed") return; // versteckte Elemente (z. B. App-Ansichten) nicht anfassen
+      if (child.classList.contains("tk-reveal")) return;
+      child.classList.add("tk-reveal");
+      child.style.transitionDelay = Math.min(i * 70, 350) + "ms";
+      els.push(child);
+      i++;
+    });
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("tk-on"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
