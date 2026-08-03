@@ -214,6 +214,9 @@
     min-height: 1.4em;
   }
   #buehne-status:empty { display: none; }
+  /* Die Statuszeile erbt sonst das dunkle Grau der Grundschrift und wird
+     auf dem abgedunkelten Kasten unlesbar. */
+  #buehne-status #status-zeile { color: #fff; }
   #buehne-knoepfe {
     position: absolute; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
     display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; justify-content: center;
@@ -618,73 +621,24 @@ function zeigeBlase(wer, text) {
   verlaufEl.scrollTop = verlaufEl.scrollHeight;
 }
 
-/* ============================ Avatar (integrierte Vollbild-Szene) ============================ */
-/* Die Begleiterin ist Teil des Wohnzimmer-Bildes (Gemini-Montage). Beim Sprechen
-   wird zwischen drei Ganzbild-Varianten (Mund zu/halb/offen) überblendet —
-   gesteuert von der GEGLÄTTETEN Lautstärke der KI-Stimme (kein Flackern):
-   - exponentielle Glättung des Pegels
-   - Mindesthaltezeit 120 ms pro Mundstellung
-   - Hysterese (Wechsel erst bei deutlich anderem Pegel)
-   Blinzeln alle 4–8 s über die Augen-zu-Variante. */
+/* ============================ Avatar (Standbild) ============================ */
+/* Die Begleiterin ist Teil des Wohnzimmer-Bildes (Gemini-Montage).
+   Bewusste Entscheidung: RUHIGES STANDBILD, keine Animation.
+   Die frühere lippensynchrone Überblendung zwischen drei Mundstellungen
+   (gesteuert über die Lautstärke der KI-Stimme) wirkte unruhig und lenkte
+   vom Gespräch ab. Auch das Blinzeln ist deshalb aus.
+
+   Die Bilder szene-halb/-offen/-augen bleiben im Ordner liegen, falls die
+   Animation später wieder gewünscht wird. */
 const Avatar = {
-  ebenen: {}, aktuelleStufe: "zu", letzterWechsel: 0, blinzelt: false,
-  pegelGlatt: 0,
-
   init() {
-    this.ebenen = {
-      zu: document.getElementById("szene-zu"),
-      halb: document.getElementById("szene-halb"),
-      offen: document.getElementById("szene-offen"),
-      augen: document.getElementById("szene-augen")
-    };
-    this.blinzelPlanen();
-    this.schleife();
-  },
-
-  zeige(stufe) {
-    for (const [name, bild] of Object.entries(this.ebenen))
-      bild.classList.toggle("szene-sichtbar", name === stufe);
-  },
-
-  schleife() {
-    const roh = (typeof GeminiLive !== "undefined") ? GeminiLive.pegel() : 0;
-    // Glättung: schnelle Reaktion nach oben, sanftes Abklingen nach unten
-    this.pegelGlatt = roh > this.pegelGlatt
-      ? 0.5 * this.pegelGlatt + 0.5 * roh
-      : 0.82 * this.pegelGlatt + 0.18 * roh;
-
-    const jetzt = performance.now();
-    if (!this.blinzelt && jetzt - this.letzterWechsel >= 120) {
-      const p = this.pegelGlatt;
-      let stufe = this.aktuelleStufe;
-      // Hysterese: Auf- und Abstiegs-Schwellen unterscheiden sich
-      if (stufe === "zu")        { if (p > 0.045) stufe = "halb"; }
-      else if (stufe === "halb") { if (p > 0.11) stufe = "offen"; else if (p < 0.025) stufe = "zu"; }
-      else if (stufe === "offen"){ if (p < 0.07) stufe = "halb"; }
-      if (stufe !== this.aktuelleStufe) {
-        this.aktuelleStufe = stufe;
-        this.letzterWechsel = jetzt;
-        this.zeige(stufe);
-      }
+    // Nur das Ausgangsbild zeigen, alle anderen Ebenen ausblenden.
+    for (const id of ["szene-halb", "szene-offen", "szene-augen"]) {
+      const bild = document.getElementById(id);
+      if (bild) bild.classList.remove("szene-sichtbar");
     }
-    requestAnimationFrame(() => this.schleife());
-  },
-
-  blinzelPlanen() {
-    setTimeout(() => {
-      // Nur blinzeln, wenn der Mund gerade zu ist — wirkt am natürlichsten
-      if (this.aktuelleStufe === "zu") {
-        this.blinzelt = true;
-        this.zeige("augen");
-        setTimeout(() => {
-          this.blinzelt = false;
-          this.zeige(this.aktuelleStufe);
-          this.blinzelPlanen();
-        }, 160);
-      } else {
-        this.blinzelPlanen();
-      }
-    }, 4000 + Math.random() * 4000);
+    const start = document.getElementById("szene-zu");
+    if (start) start.classList.add("szene-sichtbar");
   }
 };
 
@@ -935,8 +889,8 @@ async function starteLiveGespraech() {
   starteZeitmesser();
   setKreis("hoert");
   setStatus("Verbunden – sprechen Sie einfach.");
-  document.getElementById("seitenpanel").classList.add("offen");
-  document.getElementById("panel-schalter").textContent = "✕ Schließen";
+  // Das Mitlese-Panel bleibt bewusst zu: Es öffnet sich nur, wenn die Person
+  // selbst auf "Mitlesen" tippt.
   GeminiLive.sendeText(nutzer
     ? "[Das Gespräch beginnt. Begrüße " + nutzer.name + " herzlich und frage, worüber er oder sie heute sprechen möchte.]"
     : "[Das Gespräch beginnt. Begrüße die Person herzlich, stelle dich als ihr persönlicher Begleiter vor und frage nach ihrem Namen.]");
