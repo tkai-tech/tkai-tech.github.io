@@ -6,6 +6,14 @@
    Echte Sprach-zu-Sprach-Verbindung über die Google Gemini Live API:
    Mikrofon (PCM16, 16 kHz) → WebSocket → Gemini → Audio (PCM16, 24 kHz).
 
+   Schlüssel-Handhabung:
+   – Ist ein eigener API-Schlüssel vorhanden (Parameter oder localStorage),
+     wird wie bisher direkt mit ihm verbunden (v1beta, ?key=…).
+   – Ohne Schlüssel holt sich die Engine automatisch ein kurzlebiges
+     Token vom eigenen Token-Server (api.tkai.tech) und verbindet über
+     den v1alpha-Endpunkt (?access_token=…). Der echte API-Schlüssel
+     bleibt so ausschließlich auf dem Server.
+
    Verwendung:
      await GeminiLive.verbinde({
        apiKey, modell, stimme, systemPrompt,
@@ -26,6 +34,7 @@
 const GeminiLive = {
   STANDARD_MODELL: "gemini-3.1-flash-live-preview",
   STANDARD_STIMME: "Kore",
+  TOKEN_URL: "https://api.tkai.tech/api/senior/token",
 
   ws: null,
   aktiv: false,
@@ -48,21 +57,43 @@ const GeminiLive = {
     try { return (localStorage.getItem("senior_test_modellGemini") || "").trim(); } catch (e) { return ""; }
   },
 
+  /* ---------- Kurzzeit-Token vom eigenen Server holen ---------- */
+  _holeToken() {
+    return fetch(this.TOKEN_URL, { method: "POST" })
+      .then(r => {
+        if (!r.ok) throw new Error("Token-Server antwortete mit " + r.status);
+        return r.json();
+      })
+      .then(d => {
+        if (!d.token) throw new Error("Token-Server lieferte kein Token.");
+        return d.token;
+      });
+  },
+
   /* ============================ Verbinden ============================ */
   verbinde(opts) {
     const self = this;
     this.cb = opts || {};
-    const key = (opts.apiKey || this.gespeicherterSchluessel()).trim();
-    if (!key) return Promise.reject(new Error("Kein Gemini-API-Schlüssel vorhanden."));
-    const modell = opts.modell || this.gespeichertesModell() || this.STANDARD_MODELL;
-    const stimme = opts.stimme || this.STANDARD_STIMME;
+    const eigenerKey = ((opts && opts.apiKey) || this.gespeicherterSchluessel()).trim();
+    const modell = (opts && opts.modell) || this.gespeichertesModell() || this.STANDARD_MODELL;
+    const stimme = (opts && opts.stimme) || this.STANDARD_STIMME;
 
-    return new Promise((resolve, reject) => {
+    // Mit eigenem Schlüssel: direkter Weg (wie bisher).
+    // Ohne Schlüssel: kurzlebiges Token vom eigenen Server, v1alpha-Endpunkt.
+    const urlVersprechen = eigenerKey
+      ? Promise.resolve(
+          "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" +
+          encodeURIComponent(eigenerKey))
+      : this._holeToken().then(token =>
+          "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContentConstrained?access_token=" +
+          encodeURIComponent(token))
+        .catch(e => {
+          throw new Error("Der Sprachdienst ist gerade nicht erreichbar – bitte später erneut versuchen. (" + e.message + ")");
+        });
+
+    return urlVersprechen.then(wsUrl => new Promise((resolve, reject) => {
       let bereit = false;
-      self.ws = new WebSocket(
-        "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=" +
-        encodeURIComponent(key)
-      );
+      self.ws = new WebSocket(wsUrl);
 
       self.ws.onopen = () => {
         self.ws.send(JSON.stringify({
@@ -72,7 +103,7 @@ const GeminiLive = {
               responseModalities: ["AUDIO"],
               speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: stimme } } }
             },
-            systemInstruction: { parts: [{ text: opts.systemPrompt || "" }] },
+            systemInstruction: { parts: [{ text: (opts && opts.systemPrompt) || "" }] },
             inputAudioTranscription: {},
             outputAudioTranscription: {}
           }
@@ -109,7 +140,7 @@ const GeminiLive = {
       };
 
       self.ws.onerror = () => {
-        if (!bereit) reject(new Error("Verbindung zu Gemini fehlgeschlagen – bitte API-Schlüssel und Internet prüfen."));
+        if (!bereit) reject(new Error("Verbindung zu Gemini fehlgeschlagen – bitte Internetverbindung prüfen."));
         else if (self.cb.onFehler) self.cb.onFehler("Die Verbindung zum Sprachdienst ist gestört.");
       };
       self.ws.onclose = ev => {
@@ -118,7 +149,7 @@ const GeminiLive = {
         self._aufraeumen();
         if (warAktiv && self.cb.onEnde) self.cb.onEnde();
       };
-    });
+    }));
   },
 
   sendeText(text) {
