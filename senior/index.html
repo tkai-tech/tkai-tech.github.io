@@ -485,6 +485,14 @@ function geminiSchluessel() {
   return KONFIG.gemini.apiKey || GeminiLive.gespeicherterSchluessel();
 }
 
+/* Ist die echte Gemini-Sprachverbindung nutzbar?
+   Entweder liegt ein eigener Schlüssel vor, oder die Engine holt sich ein
+   Kurzzeit-Token vom eigenen Token-Server (api.tkai.tech). Nur wenn beides
+   fehlt, bleibt der Demo-Modus mit Browser-Sprachtechnik als Rückfallebene. */
+function geminiVerfuegbar() {
+  return !!(geminiSchluessel() || GeminiLive.TOKEN_URL);
+}
+
 /* ============================ Speicher ============================ */
 const Speicher = {
   lade(schluessel, standard) {
@@ -936,7 +944,7 @@ async function starteLiveGespraech() {
 
 function starteGespraech() {
   if (Kontingent.verfuegbareSek() <= 0) { kontingentErschoepft(); return; }
-  if (geminiSchluessel()) { starteLiveGespraech(); return; }   // Standard: Gemini Live
+  if (geminiVerfuegbar()) { starteLiveGespraech(); return; }   // Standard: Gemini Live
   if (!ErkennungsKlasse) {
     zeigeMikroFehler("Ihr Browser unterstützt die Spracherkennung leider nicht. Bitte verwenden Sie Google Chrome, Microsoft Edge oder Safari.");
     return;
@@ -1246,7 +1254,7 @@ knopfWiederholen.addEventListener("click", () => {
 TTS.init();
 Avatar.init();
 aktualisiereNutzerAnzeige();
-setStatus(geminiSchluessel() || ErkennungsKlasse
+setStatus(geminiVerfuegbar() || ErkennungsKlasse
   ? "Drücken Sie den grünen Knopf, um zu beginnen."
   : "Hinweis: Bitte öffnen Sie diese Seite in Google Chrome, Microsoft Edge oder Safari, damit die Sprachfunktion funktioniert.");
 </script>
