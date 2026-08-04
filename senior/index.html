@@ -3,8 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senior – Ihr persönlicher Begleiter</title>
+<title>SeniorKI – Ihr persönlicher Begleiter</title>
+<meta name="description" content="SeniorKI: ein einfacher Sprach-Begleiter für Menschen über 65 – sprechen statt tippen, ohne App-Hürden, ohne Fachbegriffe.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SeniorKI">
+<meta property="og:title" content="SeniorKI – Ihr persönlicher Begleiter">
+<meta property="og:description" content="Ein einfacher Sprach-Begleiter für Menschen über 65 – sprechen statt tippen, ohne App-Hürden, ohne Fachbegriffe.">
+<meta property="og:url" content="https://tkai.tech/senior/">
+<meta property="og:image" content="https://tkai.tech/senior/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>
+  /* --- tkai Markenrichtlinie: Space Grotesk selbst gehostet --- */
+  /* Erster Pfad: lokale Projektablage. Zweiter Pfad: /fonts/ im Web-Root (tkai.tech/fonts/) */
+  @font-face { font-family: "Space Grotesk"; font-weight: 400; font-display: swap; src: url("fonts/space-grotesk-latin-400-normal.woff2") format("woff2"), url("../fonts/space-grotesk-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Space Grotesk"; font-weight: 500; font-display: swap; src: url("fonts/space-grotesk-latin-500-normal.woff2") format("woff2"), url("../fonts/space-grotesk-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Space Grotesk"; font-weight: 700; font-display: swap; src: url("fonts/space-grotesk-latin-700-normal.woff2") format("woff2"), url("../fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); }
   :root {
     --blau: #1a4d8f;
     --blau-dunkel: #123a6e;
@@ -19,6 +37,8 @@
     --gold: #8a6212;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  h1, h2, h3 { font-family: "Space Grotesk", Georgia, serif; letter-spacing: -0.01em; }
+  .lucide { width: 1.05em; height: 1.05em; vertical-align: -0.15em; }
   html { font-size: 20px; }
   body {
     font-family: Georgia, "Times New Roman", serif;
@@ -185,12 +205,17 @@
   .preis small { font-size: 0.9rem; font-weight: normal; color: var(--text-hell); }
   .abo-kachel ul { list-style: none; text-align: left; margin: 0.8rem 0; }
   .abo-kachel li { padding: 0.25rem 0 0.25rem 1.6rem; position: relative; font-size: 1rem; }
-  .abo-kachel li::before { content: "✓"; position: absolute; left: 0; color: var(--gruen); font-weight: bold; }
+  .abo-kachel li::before { content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231e7a3c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E"); position: absolute; left: 0; top: 0.35rem; }
   footer {
     text-align: center; padding: 1.2rem; color: var(--text-hell);
     font-size: 0.95rem; border-top: 1px solid var(--rand); margin-top: 2rem;
   }
   .versteckt { display: none !important; }
+  /* --- tkai Markenrichtlinie: Endorsement (helle Variante) --- */
+  .tkai-endorsement { font-size: 0.85rem; color: #5b6673; margin-top: 0.6rem; }
+  .tkai-endorsement a { color: #1a222c; text-decoration: none; font-family: "Space Grotesk", sans-serif; font-weight: 700; }
+  .tkai-endorsement a span { color: #2ba99e; }
+  .tkai-endorsement a:hover span { text-decoration: underline; }
 
   /* --- Vollbild-Bühne (integrierte Gemini-Szene: Frau im Wohnzimmer) --- */
   #buehne {
@@ -265,7 +290,7 @@
 <body>
 
 <header>
-  <h1>🌻 <span>Senior</span> – Ihr Begleiter</h1>
+  <h1><svg class="lucide lucide-flower-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1"/><circle cx="12" cy="8" r="2"/><path d="M12 10v12"/><path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"/><path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"/></svg> <span>SeniorKI</span> – Ihr Begleiter</h1>
   <nav aria-label="Hauptnavigation">
     <button data-ziel="home" class="aktiv">Start</button>
     <button data-ziel="registrieren" id="nav-registrieren">Anmelden</button>
@@ -283,16 +308,16 @@
       <img class="szene" id="szene-halb"  src="avatar/szene-halb.jpg"  alt="" aria-hidden="true">
       <img class="szene" id="szene-offen" src="avatar/szene-offen.jpg" alt="" aria-hidden="true">
       <img class="szene" id="szene-augen" src="avatar/szene-augen.jpg" alt="" aria-hidden="true">
-      <div id="kreis" aria-hidden="true">🌻</div>
+      <div id="kreis" aria-hidden="true"></div>
       <p id="buehne-status"><span id="status-zeile" role="status" aria-live="polite">Drücken Sie den grünen Knopf, um zu beginnen.</span></p>
-      <button id="panel-schalter" aria-controls="seitenpanel">📖 Mitlesen</button>
+      <button id="panel-schalter" aria-controls="seitenpanel"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg> Mitlesen</button>
       <aside id="seitenpanel" aria-label="Gespräch zum Mitlesen">
         <h3>Unser Gespräch zum Mitlesen</h3>
         <div id="verlauf" aria-label="Gesprächsverlauf"></div>
       </aside>
       <div id="buehne-knoepfe">
-        <button class="gross-knopf" id="knopf-gespraech">🎤 Gespräch beginnen</button>
-        <button class="neben-knopf" id="knopf-wiederholen" disabled>🔊 Noch einmal</button>
+        <button class="gross-knopf" id="knopf-gespraech"><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg> Gespräch beginnen</button>
+        <button class="neben-knopf" id="knopf-wiederholen" disabled><svg class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg> Noch einmal</button>
       </div>
       <div id="mikro-fehler" class="fehler versteckt" role="alert"></div>
     </div>
@@ -439,8 +464,11 @@
 </main>
 
 <footer>
-  Senior – Prototyp · Ihre Gespräche bleiben auf diesem Gerät gespeichert. ·
+  SeniorKI – Prototyp · Ihre Gespräche bleiben auf diesem Gerät gespeichert. ·
   <span id="fuss-status"></span>
+  <p class="tkai-endorsement">
+    Ein Produkt von <a href="https://tkai.tech" rel="noopener">tk<span>ai</span></a>
+  </p>
 </footer>
 
 <script src="gemini-live.js"></script>
@@ -598,6 +626,12 @@ const TTS = {
 const ErkennungsKlasse = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 /* ============================ Oberfläche ============================ */
+/* Lucide-Icons für Knöpfe (tkai Markenrichtlinie: keine Emojis in der UI) */
+const ICON_ATTRS = 'class="lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
+const ICON_MIKRO = `<svg ${ICON_ATTRS}><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>`;
+const ICON_STOP = `<svg ${ICON_ATTRS}><rect width="14" height="14" x="5" y="5" rx="2"/></svg>`;
+const ICON_BUCH = `<svg ${ICON_ATTRS}><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>`;
+const ICON_ZU = `<svg ${ICON_ATTRS}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 const kreis = document.getElementById("kreis");
 const statusZeile = document.getElementById("status-zeile");
 const verlaufEl = document.getElementById("verlauf");
@@ -605,8 +639,7 @@ const knopfGespraech = document.getElementById("knopf-gespraech");
 const knopfWiederholen = document.getElementById("knopf-wiederholen");
 
 function setKreis(zustand) {
-  kreis.className = zustand;
-  kreis.textContent = zustand === "hoert" ? "👂" : "🌻";
+  kreis.className = zustand; /* Element ist ausgeblendet – nur Zustandsklasse pflegen */
 }
 function setStatus(text) { statusZeile.textContent = text; }
 function zeigeBlase(wer, text) {
@@ -646,8 +679,8 @@ const Avatar = {
 document.getElementById("panel-schalter").addEventListener("click", () => {
   const panel = document.getElementById("seitenpanel");
   panel.classList.toggle("offen");
-  document.getElementById("panel-schalter").textContent =
-    panel.classList.contains("offen") ? "✕ Schließen" : "📖 Mitlesen";
+  document.getElementById("panel-schalter").innerHTML =
+    panel.classList.contains("offen") ? ICON_ZU + " Schließen" : ICON_BUCH + " Mitlesen";
 });
 
 /* ============================ Coach-Gehirn ============================ */
@@ -657,7 +690,7 @@ const Coach = {
   merkeName: "",
 
   systemPrompt() {
-    let p = "Du bist „Senior“, ein warmherziger, geduldiger Sprach-Coach für Menschen über 65. " +
+    let p = "Du bist „SeniorKI“, ein warmherziger, geduldiger Sprach-Coach für Menschen über 65. " +
       "Sprich einfaches, klares Deutsch in kurzen Sätzen (maximal 3 Sätze pro Antwort, da vorgelesen wird). " +
       "Sieze die Person. Sei ermutigend, nie belehrend. Stelle am Ende oft eine einfache Rückfrage. " +
       "Themen: Gesundheit, Bewegung, Gedächtnistraining, Ernährung, Erinnerungen, Alltagshilfe, Technik-Hilfe. " +
@@ -800,7 +833,7 @@ function begruessungsText() {
     return "Hallo " + nutzer.name + ", schön, dass Sie wieder da sind! Worüber möchten Sie heute sprechen?";
   }
   Coach.phase = "name";
-  return "Hallo und herzlich willkommen! Ich bin Ihr persönlicher Begleiter hier bei Senior. " +
+  return "Hallo und herzlich willkommen! Ich bin Ihr persönlicher Begleiter hier bei SeniorKI. " +
     "Mit mir können Sie einfach sprechen – über Gesundheit, Bewegung, Gedächtnistraining oder einfach über Ihren Tag. " +
     "Ich höre zu, gebe Anregungen und bin für Sie da. Verraten Sie mir zuerst: Wie heißen Sie?";
 }
@@ -883,7 +916,7 @@ async function starteLiveGespraech() {
   knopfGespraech.disabled = false;
   liveModus = true;
   gespraechAktiv = true;
-  knopfGespraech.textContent = "🛑 Gespräch beenden";
+  knopfGespraech.innerHTML = ICON_STOP + " Gespräch beenden";
   knopfGespraech.classList.add("stop");
   knopfWiederholen.disabled = false;
   starteZeitmesser();
@@ -906,7 +939,7 @@ function starteGespraech() {
   document.getElementById("mikro-fehler").classList.add("versteckt");
   erkennungsFehler = 0;
   gespraechAktiv = true;
-  knopfGespraech.textContent = "🛑 Gespräch beenden";
+  knopfGespraech.innerHTML = ICON_STOP + " Gespräch beenden";
   knopfGespraech.classList.add("stop");
   knopfWiederholen.disabled = false;
   starteZeitmesser();
@@ -923,7 +956,7 @@ function beendeGespraech(stumm) {
   if (erkennung) { try { erkennung.abort(); } catch (e) {} erkennung = null; }
   stoppeZeitmesser();
   setKreis("");
-  knopfGespraech.textContent = "🎤 Gespräch beginnen";
+  knopfGespraech.innerHTML = ICON_MIKRO + " Gespräch beginnen";
   knopfGespraech.classList.remove("stop");
   knopfWiederholen.disabled = true;
   if (!stumm) setStatus("Das Gespräch ist beendet. Drücken Sie den grünen Knopf, wenn Sie weitersprechen möchten.");
