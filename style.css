@@ -219,6 +219,11 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 .legal h1 { font-size: 2rem; margin-bottom: 24px; }
 .legal h2 { font-size: 1.25rem; margin: 32px 0 10px; }
 .legal p, .legal li { color: var(--text-muted); margin-bottom: 10px; }
+.legal ul { margin: 0 0 14px 0; padding-left: 22px; }
+.legal ul li { list-style: disc; }
+.legal code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; color: var(--text); }
+.legal a { color: var(--accent); }
+.legal strong { color: var(--text); }
 .legal .note { color: #b39dfa; font-size: 0.9rem; }
 
 /* Fokus-Zustände (Tastaturnavigation) */
