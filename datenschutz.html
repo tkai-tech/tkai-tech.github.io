@@ -46,10 +46,10 @@
       E-Mail: hallo@tkai.tech
     </p>
 
-    <p class="note">Diese Erklärung gilt für <strong>tkai.tech</strong> und für die unter den Subdomains <strong>wattklar.tkai.tech</strong> (WattKlar), <strong>waermeklar.tkai.tech</strong> (WärmeKlar) und <strong>engicalc.tkai.tech</strong> (EngiCalc) erreichbaren Anwendungen.</p>
+    <p class="note">Diese Erklärung gilt für <strong>tkai.tech</strong> und für die unter den Subdomains <strong>wattklar.tkai.tech</strong> (WattKlar), <strong>waermeklar.tkai.tech</strong> (WärmeKlar), <strong>engicalc.tkai.tech</strong> (EngiCalc) und <strong>senior.tkai.tech</strong> (tkai Senior) erreichbaren Anwendungen.</p>
 
     <h2>2. Hosting</h2>
-    <p>Diese Website und die Anwendungen unter <code>wattklar.tkai.tech</code>, <code>waermeklar.tkai.tech</code> und <code>engicalc.tkai.tech</code> werden bei der Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Zypern, gehostet; die Server stehen in Deutschland. Beim Aufruf verarbeitet der Webserver automatisch technische Zugriffsdaten (sog. Server-Logfiles: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, übertragene Datenmenge, Referrer, Browsertyp). Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der sicheren und stabilen Bereitstellung). Die Logfiles werden nach spätestens 14 Tagen gelöscht. Mit dem Hostinganbieter besteht ein Vertrag über die Auftragsverarbeitung nach Art. 28 DSGVO.</p>
+    <p>Diese Website und die Anwendungen unter <code>wattklar.tkai.tech</code>, <code>waermeklar.tkai.tech</code>, <code>engicalc.tkai.tech</code> und <code>senior.tkai.tech</code> werden bei der Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Zypern, gehostet; die Server stehen in Deutschland. Beim Aufruf verarbeitet der Webserver automatisch technische Zugriffsdaten (sog. Server-Logfiles: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, übertragene Datenmenge, Referrer, Browsertyp). Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der sicheren und stabilen Bereitstellung). Die Logfiles werden nach spätestens 14 Tagen gelöscht. Mit dem Hostinganbieter besteht ein Vertrag über die Auftragsverarbeitung nach Art. 28 DSGVO.</p>
 
     <p>Für <code>engicalc.tkai.tech</code> (EngiCalc) bleibt es bei diesen Zugriffsdaten: Die Seite ist rein statisch. Alle Berechnungen und auch der Assistent „EngiBot“ laufen ausschließlich in Ihrem Browser. Es werden keine Eingaben an uns oder an Dritte übertragen, keine Konten angelegt, keine Cookies gesetzt und keine externen Dienste eingebunden.</p>
 
@@ -74,7 +74,18 @@
     <p>Ihre Eingaben werden nicht dauerhaft gespeichert, solange Sie sie nicht in einem Nutzerkonto sichern oder ein Formular absenden. Ein erzeugter PDF-Report wird zum Download ausgeliefert und serverseitig nicht abgelegt.</p>
     <p>Es findet keine automatisierte Entscheidungsfindung einschließlich Profiling nach Art. 22 DSGVO statt. Die Berechnung ist eine unverbindliche Wirtschaftlichkeitsschätzung und entfaltet keine rechtliche Wirkung.</p>
 
-    <h2>7. Anfrageformulare und Double-Opt-In</h2>
+    <h2>7. Sprach-Begleiter tkai Senior</h2>
+    <p>Unter <code>senior.tkai.tech</code> stellen wir einen sprachgesteuerten Begleiter bereit: Sie sprechen, die Anwendung antwortet mit einer synthetischen Stimme. Die Verarbeitung Ihrer Stimme ist dafür zwingend erforderlich.</p>
+    <p><strong>Was technisch passiert.</strong> Erst wenn Sie ein Gespräch aktiv starten und Ihrem Browser den Zugriff auf das Mikrofon erlauben, überträgt Ihr Browser die Aufnahme fortlaufend und in Echtzeit an die Gemini Live API von Google (Modell <code>gemini-3.1-flash-live-preview</code>). Google erzeugt daraus die gesprochene Antwort und ein Transkript. Die Verbindung besteht unmittelbar zwischen Ihrem Browser und Google — die Audiodaten laufen nicht über unseren Server. Solange kein Gespräch läuft, wird nichts aufgenommen und nichts übertragen.</p>
+    <p><strong>Umfang.</strong> Übertragen wird alles, was das Mikrofon während eines laufenden Gesprächs aufnimmt, also auch Nebengeräusche und Äußerungen anderer Personen im Raum. Bitte sprechen Sie keine besonderen Kategorien personenbezogener Daten nach Art. 9 DSGVO ein, insbesondere keine Gesundheitsdaten, und weisen Sie Mitanwesende auf die Aufnahme hin. Beenden Sie das Gespräch, sobald Sie nicht mehr sprechen möchten.</p>
+    <p><strong>Empfänger.</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland, als Auftragsverarbeiter. Eine Verarbeitung in Drittländern einschließlich der USA ist nicht ausgeschlossen; sie erfolgt auf Grundlage der Standardvertragsklauseln der EU-Kommission. Wir nutzen die kostenpflichtige Variante der Schnittstelle; nach deren Bedingungen werden Ihre Eingaben und die Antworten nicht zum Training der Modelle verwendet. Eine zeitlich begrenzte Vorhaltung durch Google zur Missbrauchserkennung ist nicht ausgeschlossen. Einzelheiten: <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">ai.google.dev/gemini-api/terms</a>.</p>
+    <p><strong>Token-Server.</strong> Damit unser Zugangsschlüssel nicht in Ihrem Browser landet, holt die Anwendung vor jedem Gespräch ein kurzlebiges Zugangstoken von <code>api.tkai.tech</code>. Dabei verarbeiten wir Ihre IP-Adresse, um die Zahl der Anfragen zu begrenzen. Die Zählung liegt ausschließlich im Arbeitsspeicher und wird stündlich zurückgesetzt; zusätzlich entsteht ein Eintrag im Systemprotokoll des Servers. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am Schutz vor missbräuchlicher Nutzung).</p>
+    <p><strong>Was wir nicht speichern.</strong> Wir zeichnen keine Gespräche auf und speichern weder Audiodateien noch Transkripte. Das angezeigte Gesprächsprotokoll steht nur in Ihrem Browser und verschwindet, wenn Sie die Seite schließen.</p>
+    <p><strong>Speicher in Ihrem Browser.</strong> Für die Anzeige des verbleibenden Gesprächskontingents legt die Anwendung Werte im lokalen Speicher Ihres Browsers ab (Schlüssel beginnend mit <code>senior_</code>). Diese Angaben bleiben auf Ihrem Gerät, werden nicht an uns übertragen und sind für den Betrieb erforderlich; sie bedürfen nach § 25 Abs. 2 Nr. 2 TDDDG keiner Einwilligung. Sie können sie jederzeit über die Einstellungen Ihres Browsers löschen.</p>
+    <p><strong>Rechtsgrundlage.</strong> Die Verarbeitung Ihrer Sprachdaten erfolgt zur Erbringung der von Ihnen angeforderten Leistung nach Art. 6 Abs. 1 lit. b DSGVO. Das Gespräch startet ausschließlich auf Ihre aktive Handlung hin, und Ihr Browser fragt Sie zusätzlich um Erlaubnis für das Mikrofon. Diese Erlaubnis können Sie jederzeit in den Browsereinstellungen widerrufen; danach ist die Sprachfunktion nicht mehr nutzbar.</p>
+    <p><strong>Keine automatisierte Entscheidungsfindung.</strong> Der Begleiter trifft keine Entscheidungen mit rechtlicher Wirkung. Er ersetzt keine medizinische, rechtliche oder finanzielle Beratung und stellt keine Diagnosen.</p>
+
+    <h2>8. Anfrageformulare und Double-Opt-In</h2>
     <p>Über die Formulare für die kostenlose Detailanalyse bzw. Ersteinschätzung und über das Formular „Pilotpartner werden“ können Sie mit uns Kontakt aufnehmen. Verarbeitet werden die von Ihnen angegebenen Daten (Anfrage von Interessenten: Name, E-Mail-Adresse, Postleitzahl bzw. Ort, optional Telefonnummer und ergänzende Angaben zu Gebäude und geplanter Anlage; Partneranfrage: Firma, Ansprechpartner, E-Mail-Adresse, Einsatzgebiet) sowie die Angaben aus dem Rechner, sofern Sie sie mit absenden.</p>
     <p>Wir verwenden das <strong>Double-Opt-In-Verfahren</strong>: Nach dem Absenden erhalten Sie eine E-Mail mit einem Bestätigungslink. Erst nach dem Klick auf diesen Link bearbeiten wir Ihre Anfrage. Bis dahin ist Ihre Anfrage als „nicht bestätigt“ markiert. Zum Nachweis der Einwilligung speichern wir den Zeitpunkt Ihrer Bestätigung und die dabei verwendete IP-Adresse.</p>
     <p>Rechtsgrundlage für die Bearbeitung Ihrer Anfrage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO sowie Art. 6 Abs. 1 lit. b DSGVO. Rechtsgrundlage für die Protokollierung von Zeitpunkt und IP-Adresse ist unser berechtigtes Interesse an der Nachweisbarkeit der Einwilligung, Art. 6 Abs. 1 lit. f DSGVO in Verbindung mit Art. 7 Abs. 1 DSGVO.</p>
@@ -82,16 +93,16 @@
     <p><strong>Speicherdauer:</strong> Nicht bestätigte Anfragen löschen wir spätestens 30 Tage nach dem Absenden. Bestätigte Anfragen löschen wir, sobald der Vorgang abgeschlossen ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen, spätestens jedoch drei Jahre nach dem letzten Kontakt. Der Einwilligungsnachweis wird bis zum Ablauf möglicher Rechtsansprüche aufbewahrt.</p>
     <p>Für den Versand der Bestätigungs- und Benachrichtigungs-E-Mails nutzen wir den Mailserver unseres E-Mail-Anbieters (Hostinger International Ltd., Larnaca, Zypern). Mit dem Anbieter besteht ein Vertrag über die Auftragsverarbeitung nach Art. 28 DSGVO.</p>
 
-    <h2>8. Weitergabe an Fachbetriebe</h2>
+    <h2>9. Weitergabe an Fachbetriebe</h2>
     <p>Teil unseres Angebots ist die Vermittlung an einen Fachbetrieb. Eine Weitergabe Ihrer Daten erfolgt <strong>ausschließlich dann, wenn Sie ihr gesondert und ausdrücklich zustimmen</strong>. Übermittelt werden in diesem Fall Ihre Kontaktdaten und die Ergebnisse Ihrer Analyse an genau einen von uns ausgewählten Fachbetrieb in Ihrer Region. Eine Weitergabe an mehrere Betriebe oder ein Verkauf Ihrer Daten findet nicht statt.</p>
     <p>Rechtsgrundlage ist Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Der Fachbetrieb ist für die weitere Verarbeitung eigenständig Verantwortlicher im Sinne der DSGVO und informiert Sie gesondert über seine Verarbeitung. Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Den Namen des Betriebs teilen wir Ihnen vor der Weitergabe mit.</p>
 
-    <h2>9. Nutzerkonto und gespeicherte Analysen</h2>
+    <h2>10. Nutzerkonto und gespeicherte Analysen</h2>
     <p>Sie können freiwillig ein Nutzerkonto anlegen, um Ihre Berechnungen zu speichern und später wieder aufzurufen. Erforderlich sind dafür Ihre E-Mail-Adresse und ein selbst gewähltes Passwort. Das Passwort speichern wir nicht im Klartext, sondern ausschließlich als kryptografischen Hashwert. Zusätzlich speichern wir die von Ihnen gesicherten Analysen (Eingabewerte und Ergebnisse) sowie das Anlagedatum.</p>
     <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Erfüllung des Nutzungsverhältnisses). Die Nutzung der Rechner ist ohne Konto möglich.</p>
     <p>Sie können Ihr Konto jederzeit löschen lassen — eine formlose E-Mail an hallo@tkai.tech genügt. Mit dem Konto werden auch die gespeicherten Analysen gelöscht. Konten, die länger als 24 Monate nicht genutzt wurden, löschen wir von uns aus nach vorheriger Ankündigung per E-Mail.</p>
 
-    <h2>10. Angebots-Check (Upload von Dateien)</h2>
+    <h2>11. Angebots-Check (Upload von Dateien)</h2>
     <p>Über die Funktion „Angebots-Check“ können Sie ein vorliegendes Angebot für eine Photovoltaik-, Speicher- oder Wärmepumpenanlage als PDF- oder Textdatei hochladen und automatisiert auswerten lassen. Bei WärmeKlar können Sie zusätzlich Fotos (Typenschild, Heizungsraum, Heizkörper, Aufstellort) übermitteln. Optional können Sie eine E-Mail-Adresse für Rückfragen angeben.</p>
     <p>Die hochgeladenen Dateien enthalten regelmäßig personenbezogene Daten, etwa Ihren Namen und Ihre Anschrift sowie Angebotskonditionen. Wir verarbeiten sie ausschließlich zum Zweck der Auswertung und speichern sie auf unserem Server in Deutschland. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage).</p>
     <p><strong>Bitte laden Sie keine Dateien hoch, die besondere Kategorien personenbezogener Daten nach Art. 9 DSGVO enthalten.</strong></p>
@@ -99,21 +110,21 @@
     <p>Hochgeladene Fotos werden nicht an das KI-Sprachmodell übergeben; übermittelt wird ausschließlich der aus der Angebotsdatei ausgelesene Text.</p>
     <p><strong>Speicherdauer:</strong> Wir löschen hochgeladene Dateien und die dazugehörigen Auswertungen spätestens 90 Tage nach dem Upload. Auf Wunsch löschen wir sie jederzeit früher — eine E-Mail an hallo@tkai.tech genügt.</p>
 
-    <h2>11. Auftragsverarbeiter im Überblick</h2>
+    <h2>12. Auftragsverarbeiter im Überblick</h2>
     <p>Wir setzen folgende Dienstleister als Auftragsverarbeiter nach Art. 28 DSGVO ein:</p>
     <ul>
       <li>Hostinger International Ltd., Larnaca, Zypern — Hosting, Serverbetrieb und Versand von System- und Benachrichtigungs-E-Mails</li>
-      <li>Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland — KI-gestützte Auswertung hochgeladener Angebote (Google Vertex AI)</li>
+      <li>Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland — KI-gestützte Auswertung hochgeladener Angebote (Google Vertex AI) sowie Sprachverarbeitung im Begleiter tkai Senior (Gemini Live API)</li>
     </ul>
     <p>Mit den genannten Dienstleistern besteht jeweils ein entsprechender Vertrag zur Auftragsverarbeitung.</p>
 
-    <h2>12. Allgemeine Speicherdauer</h2>
+    <h2>13. Allgemeine Speicherdauer</h2>
     <p>Wir verarbeiten personenbezogene Daten nur so lange, wie es für die genannten Zwecke erforderlich ist oder gesetzliche Aufbewahrungsfristen (insbesondere aus HGB und AO, in der Regel sechs bzw. zehn Jahre) es verlangen. Danach werden die Daten gelöscht oder anonymisiert. Konkrete Fristen sind bei den einzelnen Verarbeitungen oben genannt.</p>
 
-    <h2>13. Ihre Rechte</h2>
+    <h2>14. Ihre Rechte</h2>
     <p>Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen die Verarbeitung (Art. 21). Soweit die Verarbeitung auf einer Einwilligung beruht, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3). Außerdem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren — zuständig ist die Landesbeauftragte für den Datenschutz Niedersachsen.</p>
 
-    <p class="note">Stand: 15.08.2026</p>
+    <p class="note">Stand: 16.08.2026</p>
 
   </div>
 </main>
