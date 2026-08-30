@@ -125,10 +125,11 @@ nav a:hover, nav a.active { color: var(--text); }
 }
 .btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
 .btn-primary { background: var(--accent); color: #06251f; }
-.btn-ghost { color: var(--text); border: 1px solid var(--border); margin-left: 12px; }
+.btn-ghost { color: var(--text); border: 1px solid var(--text-muted); margin-left: 12px; }
 
 /* Sections */
 section { padding: 70px 0; }
+section[id] { scroll-margin-top: 84px; }
 .section-title { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
 .section-sub { color: var(--text-muted); max-width: 640px; margin-bottom: 42px; }
 
@@ -240,8 +241,9 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 .btn:focus-visible, .nav-cta:focus-visible { border-radius: 10px; }
 
 @media (max-width: 700px) {
-  nav ul { gap: 16px; }
-  nav ul li.hide-mobile { display: none; }
+  .nav { flex-wrap: wrap; height: auto; padding: 12px 0; row-gap: 10px; }
+  nav ul { flex: 1 1 100%; justify-content: flex-end; gap: 14px; }
+  section[id] { scroll-margin-top: 130px; }
   .hero { padding: 70px 0 60px; }
 }
 
