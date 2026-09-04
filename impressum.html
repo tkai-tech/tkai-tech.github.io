@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Impressum — tkai.tech</title>
-<meta name="robots" content="noindex">
-<link rel="stylesheet" href="style.css">
-
-<meta property="og:type" content="website">
-<meta property="og:locale" content="de_DE">
-<meta property="og:site_name" content="tkai">
-<meta property="og:title" content="Impressum — tkai.tech">
-<meta property="og:description" content="tkai.tech entwickelt und betreibt KI-getriebene digitale Produkte.">
-<meta property="og:url" content="https://tkai.tech/impressum.html">
-<meta property="og:image" content="https://tkai.tech/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum — tkai</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="tkai">
+  <meta property="og:title" content="Impressum — tkai">
+  <meta property="og:description" content="tkai entwickelt und betreibt KI-getriebene digitale Produkte.">
+  <meta property="og:url" content="https://tkai.tech/impressum.html">
+  <meta property="og:image" content="https://tkai.tech/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="de_DE">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
   <div class="container nav">
-    <a class="logo" href="index.html">tkai<span>.tech</span></a>
-    <nav aria-label="Hauptnavigation">
+    <a class="logo" href="index.html"><span>tk</span>ai<em>.tech</em></a>
+    <nav>
       <ul>
-        <li><a href="index.html#projekte">Projekte</a></li>
-        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li class="hide-mobile"><a href="index.html#projekte">Projekte</a></li>
+        <li><a class="nav-cta" href="index.html#kontakt">Kontakt</a></li>
       </ul>
     </nav>
   </div>
@@ -39,7 +42,7 @@
     <h2>Angaben gemäß § 5 DDG</h2>
     <p>
       Thomas Koormann<br>
-      tkai.tech<br>
+      tkai<br>
       Scharnhorststraße 57<br>
       49808 Lingen (Ems)
     </p>
@@ -64,12 +67,13 @@
       Zur Teilnahme an einem Streitbeilegungsverfahren vor einer
       Verbraucherschlichtungsstelle sind wir nicht verpflichtet und nicht bereit.
     </p>
+
   </div>
 </main>
 
 <footer>
   <div class="container footer-inner">
-    <p>© 2026 tkai.tech · Thomas Koormann</p>
+    <p>© 2026 tkai · Thomas Koormann</p>
     <div class="footer-links">
       <a href="impressum.html">Impressum</a>
       <a href="datenschutz.html">Datenschutz</a>
@@ -77,5 +81,6 @@
   </div>
 </footer>
 
+<script src="script.js" defer></script>
 </body>
 </html>
