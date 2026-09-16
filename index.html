@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tkai — KI-getriebene Lösungen für echte Alltagsprobleme</title>
-  <meta name="description" content="tkai entwickelt und betreibt digitale Produkte auf Basis von Künstlicher Intelligenz: PV-Planung, Wärmepumpenauslegung und technische Berechnungen als KI-gestützte Werkzeuge.">
+  <title>tkai.tech: digitale Werkzeuge für Energie und Engineering</title>
+  <meta name="description" content="tkai entwickelt nebenberuflich zwei Rechner für Hausbesitzer (Solar mit Gewinn, Wärmepumpe mit Gewinn) und die quelloffene Berechnungsplattform EngiCalc für Ingenieure.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="tkai">
-  <meta property="og:title" content="tkai — KI-getriebene Lösungen für echte Alltagsprobleme">
-  <meta property="og:description" content="tkai entwickelt und betreibt digitale Produkte auf Basis von Künstlicher Intelligenz: PV-Planung, Wärmepumpenauslegung und technische Berechnungen als KI-gestützte Werkzeuge.">
+  <meta property="og:title" content="tkai.tech: digitale Werkzeuge für Energie und Engineering">
+  <meta property="og:description" content="tkai entwickelt nebenberuflich zwei Rechner für Hausbesitzer (Solar mit Gewinn, Wärmepumpe mit Gewinn) und die quelloffene Berechnungsplattform EngiCalc für Ingenieure.">
   <meta property="og:url" content="https://tkai.tech/">
   <meta property="og:image" content="https://tkai.tech/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -25,12 +25,13 @@
 
 <header>
   <div class="container nav">
-    <a class="logo" href="index.html"><span>tk</span>ai<em>.tech</em></a>
+    <a class="logo" href="index.html">tk<span>ai</span><em>.tech</em></a>
     <nav>
       <ul>
-        <li class="hide-mobile"><a href="index.html#projekte">Projekte</a></li>
-        <li class="hide-mobile"><a href="index.html#ansatz">Ansatz</a></li>
-        <li><a class="nav-cta" href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="index.html#produkte">Produkte</a></li>
+        <li><a href="index.html#open-source">Open Source</a></li>
+        <li><a href="index.html#interessen">Interessen</a></li>
+        <li><a class="nav-cta" href="index.html#ueber">Über tkai</a></li>
       </ul>
     </nav>
   </div>
@@ -38,102 +39,126 @@
 
 <main>
   <section class="hero">
-    <div class="container">
-      <h1>Künstliche Intelligenz,<br>die <span class="grad">echte Probleme</span> löst.</h1>
-      <p>tkai entwickelt und betreibt digitale Produkte, die auf KI und konsequenter Automatisierung basieren — vom ersten Konzept bis zum laufenden Betrieb.</p>
-      <a class="btn btn-primary" href="#projekte">Projekte ansehen</a>
-      <a class="btn btn-ghost" href="#kontakt">Kontakt aufnehmen</a>
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Energie · Engineering · KI</p>
+        <h1>Digitale Werkzeuge, mit denen vor der Entscheidung gerechnet wird.</h1>
+        <p class="lead">tkai entwickelt nebenberuflich zwei Rechner für Hausbesitzer und eine quelloffene Berechnungsplattform für Ingenieure. Nachvollziehbar gerechnet, sparsam mit Daten, selbst betrieben.</p>
+        <a class="btn btn-primary" href="#produkte">Produkte ansehen</a>
+        <a class="btn btn-ghost" href="#ueber">Über tkai</a>
+      </div>
+      <figure class="rechenblatt" aria-label="Beispielwerte aus den drei Rechnern">
+        <figcaption>Beispielrechnungen</figcaption>
+        <div class="zeile">
+          <span class="quelle">Solar mit Gewinn</span>
+          <span class="wert">8,4 kWp</span>
+          <span class="detail">amortisiert nach 11 Jahren</span>
+        </div>
+        <div class="zeile">
+          <span class="quelle">Wärmepumpe mit Gewinn</span>
+          <span class="wert">9,1 kW</span>
+          <span class="detail">Heizlast, Jahresarbeitszahl 3,4</span>
+        </div>
+        <div class="zeile">
+          <span class="quelle">EngiCalc</span>
+          <span class="wert">71 %</span>
+          <span class="detail">Ausnutzung einer Welle, Rechenweg dokumentiert</span>
+        </div>
+      </figure>
     </div>
   </section>
 
-  <section id="projekte">
+  <section id="produkte" class="hell">
     <div class="container">
-      <h2 class="section-title">Unsere Projekte</h2>
-      <p class="section-sub">Eigenständige Produkte, klar auf ihre Zielgruppe zugeschnitten — mit einer gemeinsamen KI- und Automatisierungsbasis.</p>
+      <p class="teil">01</p>
+      <h2 class="section-title">Digitale Produkte</h2>
+      <p class="section-sub">Zwei eigenständige Rechner für Hausbesitzer vor einer großen Investition, für Nutzer kostenlos. Einnahmen sollen entstehen, wenn ein Nutzer ausdrücklich zustimmt, dass seine Anfrage an einen Fachbetrieb aus seiner Region geht.</p>
       <div class="grid">
-        <a class="card" href="solar-tool.html">
-          <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+        <a class="card" href="https://solarmitgewinn.de">
+          <span class="card-kopf"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span class="badge">Live</span></span>
           <h3>Solar mit Gewinn</h3>
-          <p>PV-Konfiguration, Ertragsprognose und Amortisation auf Basis realer Standortdaten.</p>
-          <span class="more">Mehr erfahren →</span>
+          <p>Photovoltaik und Speicher: Ertrag mit realen Standortdaten, Amortisation ehrlich durchgerechnet, vorliegende Angebote eingeordnet.</p>
+          <span class="domain">solarmitgewinn.de</span>
         </a>
-        <a class="card" href="waermepumpen-tool.html">
-          <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>
+        <a class="card" href="https://waermepumpemitgewinn.de">
+          <span class="card-kopf"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span><span class="badge">Live</span></span>
           <h3>Wärmepumpe mit Gewinn</h3>
-          <p>Automatisierte Auslegung und Wirtschaftlichkeitsrechnung — Klarheit vor dem Installateurtermin.</p>
-          <span class="more">Mehr erfahren →</span>
-        </a>
-        <a class="card" href="engineering-platform.html">
-          <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>
-          <h3>EngiCalc</h3>
-          <p>Technische Berechnungen und Planungsleistungen als standardisierte, KI-gestützte Workflows.</p>
-          <span class="more">Mehr erfahren →</span>
+          <p>Heizungstausch: Heizlast, Jahresarbeitszahl und laufende Kosten im Vergleich zur bisherigen Heizung, bevor der Installateur kommt.</p>
+          <span class="domain">waermepumpemitgewinn.de</span>
         </a>
       </div>
     </div>
   </section>
 
-  <section id="interessengebiete">
+  <section id="open-source">
+    <div class="container zwei-spalten">
+      <div>
+        <p class="teil">02</p>
+        <h2 class="section-title">Open Source: EngiCalc</h2>
+        <p class="section-sub">Eine Berechnungsplattform für den Maschinen- und Anlagenbau. Ingenieure und Techniker kommen schnell zu belastbaren Zahlen und sehen dabei, woher sie stammen.</p>
+        <a class="btn btn-primary" href="https://engicalc.tkai.tech">Zu EngiCalc</a>
+        <a class="btn btn-ghost" href="https://github.com/tkai-tech/engicalc-core">Quellcode auf GitHub</a>
+      </div>
+      <ul class="fakten">
+        <li><span class="zahl">24</span><span>Rechner in sechs Fachgebieten: Strömung, Wärme, Festigkeit, Maschinenelemente, Pumpen, Akustik</span></li>
+        <li><span class="zahl">MIT</span><span>Lizenz des Rechenkerns <code>engicalc-core</code>, frei nutzbar über GitHub und npm</span></li>
+        <li><span class="zahl">0</span><span>Eingaben, die den Browser verlassen: Rechner und Assistent laufen lokal</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="interessen" class="hell">
     <div class="container">
-      <h2 class="section-title">Weitere Interessengebiete</h2>
-      <p class="section-sub">Themen, an denen wir arbeiten, die aber (noch) kein eigenständiges Angebot sind.</p>
-      <div class="topic-list">
-        <a class="badge" href="wissensmanagement.html">Wissensmanagement</a>
-        <a class="badge" href="workflow-automation.html">Workflow Automation</a>
-        <a class="badge" href="ai-video-generator.html">AI Video Generator</a>
-        <a class="badge" href="online-marketing.html">Online Marketing</a>
+      <p class="teil">03</p>
+      <h2 class="section-title">Interessen: KI im industriellen Umfeld</h2>
+      <p class="section-sub">Themen, mit denen wir uns beschäftigen und aus denen wir lernen. Dazu gibt es bewusst kein Beratungs- oder Dienstleistungsangebot.</p>
+      <div class="themen">
+        <div class="thema"><h3>Engineering</h3><p>Auslegung und Nachweise schneller und nachvollziehbarer machen.</p></div>
+        <div class="thema"><h3>Instandhaltung</h3><p>Störungen, Maßnahmen und Erfahrung so festhalten, dass sie beim nächsten Mal helfen.</p></div>
+        <div class="thema"><h3>Wissensmanagement</h3><p>Erfahrungswissen sichern, bevor es mit Menschen in den Ruhestand geht.</p></div>
+        <div class="thema"><h3>Dokumentationspflege</h3><p>Unterlagen aktuell halten, ohne dass die Pflege selbst zum Projekt wird.</p></div>
+        <div class="thema"><h3>Workflowautomatisierung</h3><p>Wiederkehrende Abläufe erkennen und dort automatisieren, wo es wirklich Zeit spart.</p></div>
       </div>
     </div>
   </section>
 
-  <section id="video">
-    <div class="container">
-      <h2 class="section-title">tkai in 90 Sekunden</h2>
-      <p class="section-sub">Was wir bauen und warum — kompakt erklärt.</p>
-      <div style="position:relative;max-width:880px;margin:0 auto;aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.35);">
-        <iframe src="https://www.youtube-nocookie.com/embed/wvKkw1v7jlg" title="tkai — KI-Werkzeuge, die Arbeit abnehmen (in 90 Sekunden)" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+  <section id="ueber">
+    <div class="container kontakt-grid">
+      <div>
+        <p class="teil">04</p>
+        <h2 class="section-title">Über tkai</h2>
+        <ul class="rahmen">
+          <li>tkai wird nebenberuflich betrieben, in der Freizeit und mit eigener Technik.</li>
+          <li>Entwicklung, Betrieb und Datenschutz liegen in einer Hand. KI dient dabei als Werkzeug.</li>
+          <li>Die Rechner laufen auf Servern in Deutschland, ohne Werbe-Cookies und ohne Tracking.</li>
+        </ul>
+        <p class="direkt">Kontakt: <a href="mailto:hallo@tkai.tech">hallo@tkai.tech</a></p>
       </div>
-    </div>
-  </section>
-
-  <section id="ansatz">
-    <div class="container">
-      <h2 class="section-title">Unser Ansatz: End-to-End mit KI</h2>
-      <p class="section-sub">KI ist bei tkai kein Feature, sondern zieht sich durch die gesamte Wertschöpfung jedes Projekts.</p>
-      <div class="steps">
-        <div class="step">
-          <span class="num">01</span>
-          <h3>Entwicklung</h3>
-          <p>KI beschleunigt Konzeption, Architektur und Produktentwicklung — Ideen werden in Wochen statt Monaten testbar.</p>
-        </div>
-        <div class="step">
-          <span class="num">02</span>
-          <h3>Markteintritt</h3>
-          <p>Automatisierte Prozesse ermöglichen schnelle, saubere Launches mit kleinem Team.</p>
-        </div>
-        <div class="step">
-          <span class="num">03</span>
-          <h3>Betrieb</h3>
-          <p>Im laufenden Geschäft übernehmen KI-Modelle Kundenservice, Datenanalyse und kontinuierliche Optimierung.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="kontakt">
-    <div class="container">
-      <div class="contact-box">
-        <h2>Lassen Sie uns sprechen</h2>
-        <p>Fragen zu einem Projekt, Interesse an einer Zusammenarbeit oder einfach neugierig?</p>
-        <a class="mail" href="mailto:hallo@tkai.tech">hallo@tkai.tech</a>
-      </div>
+      <form class="kontakt-form" id="kontakt-form" novalidate>
+        <h3>Nachricht schreiben</h3>
+        <label>Name<input name="name" autocomplete="name" maxlength="100"></label>
+        <label>E-Mail<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+        <label>Worum geht es?
+          <select name="anliegen">
+            <option value="produkte">Solar oder Wärmepumpe</option>
+            <option value="engicalc">EngiCalc</option>
+            <option value="betrieb">Ich bin Fachbetrieb</option>
+            <option value="sonstiges">etwas anderes</option>
+          </select>
+        </label>
+        <label>Nachricht<textarea name="nachricht" rows="4" maxlength="4000" required></textarea></label>
+        <label class="honig" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+        <button class="btn btn-primary" type="submit">Nachricht senden</button>
+        <p class="hinweis">Ihre Angaben gehen als E-Mail an uns und werden nur für Ihre Anfrage genutzt. <a href="datenschutz.html#kontakt">Datenschutz</a></p>
+        <p class="status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="container footer-inner">
-    <p>© 2026 tkai · Thomas Koormann</p>
+    <p>© 2026 tkai</p>
     <div class="footer-links">
       <a href="impressum.html">Impressum</a>
       <a href="datenschutz.html">Datenschutz</a>

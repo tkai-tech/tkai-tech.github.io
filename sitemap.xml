@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://tkai.tech/</loc></url>
-  <url><loc>https://tkai.tech/ai-video-generator.html</loc></url>
-  <url><loc>https://tkai.tech/engineering-platform.html</loc></url>
-  <url><loc>https://tkai.tech/online-marketing.html</loc></url>
-  <!-- senior.html: temporär entfernt, seit 08.09.2026 kein Angebot auf der Startseite -->
   <url><loc>https://tkai.tech/solar-tool.html</loc></url>
   <url><loc>https://tkai.tech/waermepumpen-tool.html</loc></url>
-  <!-- website-erstellung.html: temporär entfernt, seit 08.09.2026 kein Angebot auf der Startseite -->
-  <url><loc>https://tkai.tech/wissensmanagement.html</loc></url>
-  <url><loc>https://tkai.tech/workflow-automation.html</loc></url>
+  <url><loc>https://tkai.tech/engineering-platform.html</loc></url>
   <url><loc>https://tkai.tech/impressum.html</loc></url>
   <url><loc>https://tkai.tech/datenschutz.html</loc></url>
 </urlset>
