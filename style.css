@@ -84,6 +84,13 @@ nav a:hover, nav a.active { color: var(--text); }
   padding: 8px 18px; border-radius: 8px;
 }
 .nav-cta:hover { filter: brightness(1.1); }
+/* Sprachumschalter DE | EN */
+nav { margin-left: auto; }
+.lang { display: flex; margin-left: 24px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 0.8rem; font-weight: 600; }
+.lang a, .lang span { padding: 6px 9px; line-height: 1; }
+.lang a { color: var(--text-muted); text-decoration: none; }
+.lang a:hover { color: var(--text); }
+.lang span { background: var(--bg-card-hover); color: var(--text); }
 
 /* Hero */
 .hero { padding: 110px 0 90px; text-align: center; position: relative; overflow: hidden; }
@@ -245,8 +252,9 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 .btn:focus-visible, .nav-cta:focus-visible { border-radius: 10px; }
 
 @media (max-width: 700px) {
-  .nav { flex-wrap: wrap; height: auto; padding: 12px 0; row-gap: 10px; }
-  nav ul { flex: 1 1 100%; justify-content: flex-end; gap: 14px; }
+  .nav { flex-wrap: wrap; height: auto; padding: 12px 24px; row-gap: 10px; }
+  nav { order: 3; flex: 1 1 100%; }
+  nav ul { justify-content: flex-end; gap: 14px; }
   section[id] { scroll-margin-top: 130px; }
   .hero { padding: 70px 0 60px; }
 }
