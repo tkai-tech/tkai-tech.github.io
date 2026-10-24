@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools and services · tkai</title>
+  <meta name="description" content="Which services run behind tkai and its products, what they are used for and where they are based.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="alternate" hreflang="de" href="https://tkai.tech/werkzeuge.html">
+  <link rel="alternate" hreflang="en" href="https://tkai.tech/en/tools.html">
+  <link rel="alternate" hreflang="x-default" href="https://tkai.tech/werkzeuge.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="tkai">
+  <meta property="og:title" content="Tools and services · tkai">
+  <meta property="og:description" content="Which services run behind tkai and its products, what they are used for and where they are based.">
+  <meta property="og:url" content="https://tkai.tech/en/tools.html">
+  <meta property="og:image" content="https://tkai.tech/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="../fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="./"><span>tk</span>ai<em>.tech</em></a>
+    <nav>
+      <ul>
+        <li class="hide-mobile"><a href="./#products">Products</a></li>
+        <li class="hide-mobile"><a href="./#open-source">Open Source</a></li>
+        <li class="hide-mobile"><a href="./#interests">Interests</a></li>
+        <li><a class="nav-cta" href="./#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="lang"><a href="../werkzeuge.html" hreflang="de" lang="de" title="Deutsch">DE</a><span aria-current="true">EN</span></div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <span class="page-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+      <h1>Tools and services</h1>
+      <p class="lead">Which third-party services run behind tkai, what they are used for and where they are based. Legal details are in the privacy policies (German).</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">Operation</h2>
+      <table class="tools">
+        <thead><tr><th>Service</th><th>Used for</th><th>Based in</th></tr></thead>
+        <tbody>
+          <tr><td>Hostinger (own server)</td><td>Solar mit Gewinn, Wärmepumpe mit Gewinn, Senior and EngiCalc, plus email</td><td>Server in Germany, provider in Cyprus</td></tr>
+          <tr><td>GitHub Pages</td><td>Serving this website, tkai.tech</td><td>USA</td></tr>
+          <tr><td>GitHub and npm</td><td>Source code and package of engicalc-core</td><td>USA</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">Artificial intelligence</h2>
+      <table class="tools">
+        <thead><tr><th>Service</th><th>Used for</th><th>Based in</th></tr></thead>
+        <tbody>
+          <tr><td>Google Vertex AI (Gemini)</td><td>Reading uploaded quotes, photos and incoming emails in the two calculators</td><td>Google Ireland, USA not excluded</td></tr>
+          <tr><td>Google Gemini Live API</td><td>Voice conversations in Senior</td><td>Google Ireland, USA not excluded</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">Data and payment</h2>
+      <table class="tools">
+        <thead><tr><th>Service</th><th>Used for</th><th>Based in</th></tr></thead>
+        <tbody>
+          <tr><td>PVGIS</td><td>Solar irradiation and yield at the site in Solar mit Gewinn</td><td>Joint Research Centre of the European Commission</td></tr>
+          <tr><td>Google Solar API</td><td>Roof analysis in Solar mit Gewinn</td><td>Google Ireland, USA not excluded</td></tr>
+          <tr><td>Stripe</td><td>Payment for memberships and minute packages in Senior</td><td>Ireland, USA not excluded</td></tr>
+          <tr><td>YouTube (no cookies until play)</td><td>Explainer videos on the product pages</td><td>Google Ireland, USA not excluded</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">What is not used</h2>
+      <ul class="principles">
+        <li>No analytics or advertising cookies, no tracking, no ad networks.</li>
+        <li>EngiCalc calculates entirely in the browser. No input leaves the device.</li>
+        <li>Content sent to Google Vertex AI for analysis is not used to train the models.</li>
+      </ul>
+      <p class="section-sub" style="margin-top:24px">Details (German): <a href="../datenschutz.html" hreflang="de">Privacy policy tkai.tech</a>, <a href="https://solarmitgewinn.de/datenschutz" hreflang="de">Solar mit Gewinn</a>, <a href="https://waermepumpemitgewinn.de/datenschutz" hreflang="de">Wärmepumpe mit Gewinn</a>, <a href="https://senior.tkai.tech/datenschutz" hreflang="de">Senior</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 tkai · Thomas Koormann</p>
+    <div class="footer-links">
+      <a href="tools.html">Tools</a>
+      <a href="../impressum.html" hreflang="de">Legal notice (German)</a>
+      <a href="../datenschutz.html" hreflang="de">Privacy policy (German)</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

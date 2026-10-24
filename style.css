@@ -30,9 +30,8 @@
   --text: #e6edf3;
   --text-muted: #93a1b0;
   --accent: #4fd1c5;
-  --accent-2: #8b5cf6;
   --border: #1f2937;
-  --radius: 14px;
+  --radius: 10px;
   --maxw: 1080px;
   --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
 }
@@ -76,7 +75,7 @@ header {
 nav ul { display: flex; gap: 28px; list-style: none; }
 nav a {
   color: var(--text-muted); text-decoration: none; font-size: 0.95rem;
-  transition: color 0.2s;
+  transition: color 0.2s; white-space: nowrap;
 }
 nav a:hover, nav a.active { color: var(--text); }
 .nav-cta {
@@ -93,44 +92,21 @@ nav { margin-left: auto; }
 .lang span { background: var(--bg-card-hover); color: var(--text); }
 
 /* Hero */
-.hero { padding: 110px 0 90px; text-align: center; position: relative; overflow: hidden; }
-.hero::before {
-  content: ""; position: absolute; inset: 0;
-  background:
-    radial-gradient(600px 300px at 30% 0%, rgba(79, 209, 197, 0.10), transparent),
-    radial-gradient(600px 300px at 70% 10%, rgba(139, 92, 246, 0.10), transparent);
-  pointer-events: none;
-}
-/* Feines Punktraster im Hero, nach unten auslaufend */
-.hero::after {
-  content: ""; position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(230, 237, 243, 0.08) 1px, transparent 1px);
-  background-size: 26px 26px;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 75%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 75%);
-  pointer-events: none;
-}
-.hero .container { position: relative; z-index: 1; }
+.hero { padding: 96px 0 72px; border-bottom: 1px solid var(--border); }
 .hero h1 {
-  font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700;
   letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 20px;
-}
-.hero h1 .grad {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent));
-  background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: grad-shift 7s ease-in-out infinite;
 }
 .hero p {
   font-size: 1.15rem; color: var(--text-muted);
-  max-width: 640px; margin: 0 auto 36px;
+  max-width: 640px; margin: 0 0 36px;
 }
 .btn {
   display: inline-block; text-decoration: none; font-weight: 600;
-  padding: 13px 28px; border-radius: 10px; font-size: 1rem;
-  transition: transform 0.15s, filter 0.15s;
+  padding: 13px 28px; border-radius: 8px; font-size: 1rem;
+  transition: filter 0.15s;
 }
-.btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+.btn:hover { filter: brightness(1.1); }
 .btn-primary { background: var(--accent); color: #06251f; }
 .btn-ghost { color: var(--text); border: 1px solid var(--text-muted); margin-left: 12px; }
 
@@ -145,18 +121,15 @@ section[id] { scroll-margin-top: 84px; }
 .card {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 28px;
-  text-decoration: none; color: var(--text); display: block;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  text-decoration: none; color: var(--text); display: flex; flex-direction: column;
+  transition: background 0.2s, border-color 0.2s;
 }
-.card:hover {
-  background: var(--bg-card-hover); border-color: #2d3f55; transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(79, 209, 197, 0.12);
-}
+.card:hover { background: var(--bg-card-hover); border-color: #2d3f55; }
 .card .icon { display: block; margin-bottom: 14px; color: var(--accent); line-height: 0; }
 .card .icon svg { width: 28px; height: 28px; }
 .card h3 { font-size: 1.15rem; margin-bottom: 8px; }
 .card p { color: var(--text-muted); font-size: 0.95rem; }
-.card .more { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-top: 14px; display: inline-block; }
+.card .more { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-top: auto; padding-top: 14px; }
 .badge {
   display: inline-block; font-size: 0.75rem; font-weight: 600;
   color: var(--accent); border: 1px solid rgba(79, 209, 197, 0.35);
@@ -165,35 +138,39 @@ section[id] { scroll-margin-top: 84px; }
 }
 a.badge { text-decoration: none; transition: background 0.2s, border-color 0.2s; }
 a.badge:hover { background: rgba(79, 209, 197, 0.16); border-color: rgba(79, 209, 197, 0.6); }
-.topic-list { display: flex; flex-wrap: wrap; gap: 10px; }
-.topic-list .badge { margin-bottom: 0; }
 
-/* Steps */
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-.step { border-left: 3px solid var(--accent); padding-left: 20px; }
-.step .num { color: var(--accent); font-weight: 700; font-size: 0.9rem; }
-.step h3 { margin: 6px 0 8px; font-size: 1.1rem; }
-.step p { color: var(--text-muted); font-size: 0.95rem; }
+/* Steckbrief in Produktkarten: Für wen, Stand */
+.facts {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 12px;
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.facts dt { color: var(--text-muted); }
+.facts dd { color: var(--text); }
+
+/* Grundsätze unter „Über tkai" */
+.principles { list-style: none; max-width: 760px; }
+.principles li { padding: 12px 0; border-top: 1px solid var(--border); color: var(--text-muted); }
+.principles strong { color: var(--text); }
+.principles a, .section-sub a { color: var(--accent); }
+
+/* Tabelle auf der Werkzeuge-Seite */
+.tools { width: 100%; border-collapse: collapse; margin-bottom: 42px; font-size: 0.95rem; }
+.tools th, .tools td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--border); }
+.tools th { color: var(--text-muted); font-weight: 600; font-size: 0.85rem; }
+.tools td { color: var(--text-muted); }
+.tools td:first-child { color: var(--text); font-weight: 600; width: 28%; }
+@media (max-width: 700px) {
+  .tools thead { display: none; }
+  .tools tr { display: block; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .tools td { display: block; width: auto !important; padding: 2px 0; border: 0; }
+}
 
 /* Project pages */
-.page-hero { padding: 90px 0 50px; position: relative; overflow: hidden; }
-.page-hero::before {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(600px 300px at 30% 0%, rgba(79, 209, 197, 0.08), transparent);
-  pointer-events: none;
-}
-.page-hero::after {
-  content: ""; position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(230, 237, 243, 0.08) 1px, transparent 1px);
-  background-size: 26px 26px;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 75%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 75%);
-  pointer-events: none;
-}
-.page-hero .container { position: relative; z-index: 1; }
+.page-hero { padding: 90px 0 50px; border-bottom: 1px solid var(--border); }
 .page-icon { display: block; color: var(--accent); margin-bottom: 18px; line-height: 0; }
 .page-icon svg { width: 34px; height: 34px; }
-.page-hero h1 { font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+.page-hero h1 { font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
 .page-hero p.lead { font-size: 1.1rem; color: var(--text-muted); max-width: 680px; }
 .feature-list { list-style: none; margin-top: 10px; }
 .feature-list li {
@@ -236,7 +213,7 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 .legal code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; color: var(--text); }
 .legal a { color: var(--accent); }
 .legal strong { color: var(--text); }
-.legal .note { color: #b39dfa; font-size: 0.9rem; }
+.legal .note { color: var(--text); font-size: 0.9rem; border-left: 3px solid var(--accent); padding-left: 14px; }
 
 /* Fokus-Zustände (Tastaturnavigation) */
 :focus-visible {
@@ -257,21 +234,9 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
   nav ul { justify-content: flex-end; gap: 14px; }
   section[id] { scroll-margin-top: 130px; }
   .hero { padding: 70px 0 60px; }
+  .btn-ghost { margin-left: 0; margin-top: 12px; }
 }
 
-/* Animationen (script.js fügt .reveal/.visible hinzu; ohne JS bleibt alles sichtbar) */
-@keyframes grad-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero h1 .grad { animation: none; }
-  .reveal { opacity: 1; transform: none; transition: none; }
 }
