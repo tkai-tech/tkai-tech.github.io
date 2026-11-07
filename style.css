@@ -242,3 +242,30 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Product identities on the homepages */
+.product-card { min-width: 0; border-top: 3px solid var(--product-accent); }
+.product-solar { --product-accent: #4fd996; }
+.product-waermepumpe { --product-accent: #ff7a26; }
+.product-plauderherz { --product-accent: #76263d; }
+.product-card:hover { border-color: var(--product-accent); }
+.product-logo { display: flex; align-items: center; height: 82px; margin-bottom: 20px; }
+.product-logo img { display: block; width: 100%; height: auto; max-height: 66px; object-fit: contain; object-position: left center; }
+.product-plauderherz .product-logo { background: #f8f5ef; border-radius: 6px; padding: 12px; }
+.product-solar .more { color: #4fd996; }
+.product-waermepumpe .more { color: #ff9b59; }
+.product-plauderherz .more { color: #e4a9b9; }
+.product-card .facts dd { min-width: 0; overflow-wrap: anywhere; }
+
+/* Founder portrait selected by Thomas */
+.founder { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 48px; align-items: start; }
+.founder-photo { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.founder-copy { min-width: 0; }
+.founder-copy .section-sub { margin-bottom: 24px; }
+@media (max-width: 700px) {
+  .founder { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .founder-photo { max-width: 280px; }
+}
+
+/* Equal wordmark scale despite different product-name lengths. */
+.product-solar .product-logo img { width: 72.947005%; }
